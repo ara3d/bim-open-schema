@@ -8,6 +8,9 @@ The Schema is expressed formally as a [C# source file](https://github.com/ara3d/
 
 ## ✨ Key Benefits
 
+Having a predefined schema that is jointly defined by experts significantly reduces the cost and effort of developing tools for unlocking the potential of BIM data. 
+We can start building from a shared ecosystem of tools and libraries. 
+
 The choice of schema affects the complexity and performance of tools that work with data. 
 
 A well designed schema:
@@ -16,8 +19,6 @@ A well designed schema:
 - leads to compact data representations with minimal duplication  
 - contains the data required for common analysis 
 - minimizes the needs of complex joins
-
-Having a predefined schema that is jointly defined by experts significantly reduces the cost and effort of developing tools for unlocking the potential of BIM data.  
 
 ## 📐 Guiding Principles
 
