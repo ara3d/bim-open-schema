@@ -1,8 +1,10 @@
-# Revit Schema 
+# BIM Open Schema 
 
-Revit Schema is a joint project to define a standard for structured schema for BIM data represented within Revit.
+**BIM Open Schema** is a joint project to define a standard for structured schema for BIM data represented within AEC Design tools for ETL workflows.
 
-## Why Schemas Matter
+> ETL (Extract, Transform, and Load) is a three-phase computing process where data is extracted from an input source, transformed (including cleaning), and loaded into an output data container.
+
+## ✨ Key Benefits
 
 The choice of schema affects the complexity and performance of tools that work with data. 
 
@@ -15,17 +17,17 @@ A well designed schema:
 
 Having a predefined schema that is jointly defined by experts significantly reduces the cost and effort of developing tools for unlocking the potential of BIM data.  
 
-## Design Goals of Revit Schema
+## 📐 Guiding Principles
 
-The Revit Schema is optimized for the following design goals in order:
+The BIM Open Schema is optimized for the following design goals in order:
 
-1. Efficiently extract data out of Revit
+1. Efficiently extract data out of popular AEC design tools
 2. Efficiently import into columnar data formats and relational databases.
 3. Simplicity and ease of use for analytics and machine learning  
 
-## Serialization Formats (Readers and Writers) 
+## 📝Serialization Formats (Readers and Writers) 
 
-A Schema should be agnostic of any specific serialization format. We provide tools and examples to convert Ara 3D Revit Schema to/from:
+A schema should be agnostic of any specific serialization format. We provide tools and examples to convert BIM Open Schema to/from:
 
 - Revit (via Plug-ins)
 - JSON
@@ -33,6 +35,7 @@ A Schema should be agnostic of any specific serialization format. We provide too
 - Parquet
 - BFAST  
 
-## Contributors and Supporters
+## 👥 Contributors and Supporters
 
 Submit an issue if you support this project and want your name here! 
+
