@@ -27,7 +27,9 @@ The BIM Open Schema is optimized for the following design goals in order:
 
 ## 📝Serialization Formats (Readers and Writers) 
 
-A schema should be agnostic of any specific serialization format. We provide tools and examples to convert BIM Open Schema to/from:
+A schema should be agnostic of any specific serialization format. 
+
+We are in the process of developing  tools and examples to convert BIM Open Schema to/from:
 
 - Revit (via Plug-ins)
 - JSON
@@ -38,4 +40,5 @@ A schema should be agnostic of any specific serialization format. We provide too
 ## 👥 Contributors and Supporters
 
 Submit an issue if you support this project and want your name here! 
+
 
