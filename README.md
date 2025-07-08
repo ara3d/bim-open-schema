@@ -39,6 +39,5 @@ We are in the process of developing  tools and examples to convert BIM Open Sche
 
 ## 👥 Contributors and Supporters
 
-Submit an issue if you support this project and want your name here! 
-
+Supporting this project is as simple as [providing feedback](https://github.com/ara3d/bim-open-schema/issues/new?template=feedback.md).
 
