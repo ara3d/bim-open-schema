@@ -1,6 +1,14 @@
 using System.Collections.Generic;
 
-namespace RevitSchema;
+namespace BIMOpenSchema;
+
+public enum ElementIndex : long { }
+public enum PointIndex : long { }
+public enum RoomIndex : long { }
+public enum LevelIndex : long { }
+public enum CategoryIndex : long { }
+public enum DocumentIndex : long { }
+public enum DescriptorIndex : long { }
 
 public class ParameterDescriptorData
 {
@@ -22,22 +30,23 @@ public class ParameterDescriptorData
 
 public class ElementData 
 {
-    // This is the so-called Unique ID in Revit.
-    // We are not storing the Element IDs because they change frequently. 
-    public string StableId { get; set; }
+    // This is the so-called Unique ID in Revit, which is more stable than ElementId
+    public string Id { get; set; }
     public string Name { get; set; }
 
-    // This is available if the element is an ElementType. 
+    // This is available only if the element is an ElementType. 
     public string FamilyName { get; set; }
     
-    public int LevelIndex { get; set; }
-    public int ElementTypeIndex { get; set; }
-    public int PhaseCreatedIndex { get; set; }
-    public int PhaseDemolishedIndex { get; set; }
-    public int LocationPointIndex { get; set; }
-    public int BoundsMinPointIndex { get; set; }
-    public int BoundsMaxPointIndex { get; set; }
-    public int GroupElementIndex { get; set; }
+    public CategoryIndex Category { get; set; }
+    public LevelIndex Level { get; set; }
+    public ElementIndex Type { get; set; }
+    public ElementIndex PhaseCreated { get; set; }
+    public ElementIndex PhaseDemolished { get; set; }
+    public PointIndex Location { get; set; }
+    public PointIndex BoundsMin { get; set; }
+    public PointIndex BoundsMax { get; set; }
+    public ElementIndex Group { get; set; }
+    public DocumentIndex Document { get; set; }
 }
 
 public class PointData
@@ -49,7 +58,7 @@ public class PointData
 
 public class ElementRef
 {
-    public int ElementIndex { get; set; }
+    public ElementIndex Element { get; set; }
 }
 
 public class DocumentData : ElementRef
@@ -81,8 +90,8 @@ public class CategoryData
 
 public class ParameterData
 {
-    public int Element { get; set; } 
-    public int Descriptor { get; set; }
+    public ElementIndex Element { get; set; } 
+    public DescriptorIndex Descriptor { get; set; }
     public string Value { get; set; }
 }
 
