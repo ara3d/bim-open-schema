@@ -4,6 +4,8 @@
 
 > ETL (Extract, Transform, and Load) is a three-phase computing process where data is extracted from an input source, transformed (including cleaning), and loaded into an output data container.
 
+The Schema is expressed formally as a [C# source file](https://github.com/ara3d/bim-open-schema/blob/main/schema.cs).  
+
 ## ✨ Key Benefits
 
 The choice of schema affects the complexity and performance of tools that work with data. 
