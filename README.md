@@ -1,6 +1,6 @@
-# Ara3D Revit Schema 
+# Revit Schema 
 
-Ara 3D Revit Schema is a joint project to define a standard for structured schema for BIM data represented within Revit.
+Revit Schema is a joint project to define a standard for structured schema for BIM data represented within Revit.
 
 ## Why Schemas Matter
 
@@ -15,9 +15,9 @@ A well designed schema:
 
 Having a predefined schema that is jointly defined by experts significantly reduces the cost and effort of developing tools for unlocking the potential of BIM data.  
 
-## Design Goals of Ara 3D Revit Schema
+## Design Goals of Revit Schema
 
-The Ara 3D Revit Schema is optimized for the following design goals in order:
+The Revit Schema is optimized for the following design goals in order:
 
 1. Efficiently extract data out of Revit
 2. Efficiently import into columnar data formats and relational databases.
@@ -32,3 +32,7 @@ A Schema should be agnostic of any specific serialization format. We provide too
 - MessagePack
 - Parquet
 - BFAST  
+
+## Contributors and Supporters
+
+Submit an issue if you support this project and want your name here! 
