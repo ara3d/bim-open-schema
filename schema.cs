@@ -30,14 +30,25 @@ public enum PointIndex : long { }
 public enum DocumentIndex : long { }
 public enum DescriptorIndex : long { }
 public enum StringIndex : long { }
+public enum UnitIndex : long { }
 
 //==
-// Main data types 
+// Main data type 
 
 public record Entity(
-    StringIndex Id,
+    // ElementID in Revit, and Step Line # in IFC
+    long FileId,
+
+    // UniqueID in Revit, and GlobalID in IFC (not stored in string table, because it is NEVER duplicated)
+    string StableId, 
+
+    // The index of the document this entity was found int
     DocumentIndex Document,
+
+    // The name of the entity 
     StringIndex Name,
+
+    // The category of the entity
     StringIndex Category);
 
 public record Document(
@@ -51,8 +62,24 @@ public record Point(
 
 public record ParameterDescriptor(
     string Name,
-    string Units,
+    UnitIndex Units,
     string Group);
+
+public record Unit(
+    // UCUM symbol
+    string Symbol,
+
+    // ISO 80000 quantity name 
+    string IsoQuantity,
+    
+    // Official symbol of the base SI unit
+    string SiBaseUnitSymbol,
+
+    // Conversion factor to the SI base unit
+    double SiFactor,
+
+    // Offset required to be added before conversion the SI base unit
+    double SiOffset = 0);
 
 //==
 // Parameter data 
@@ -116,66 +143,3 @@ public enum RelationType : byte
     // IfcRelAssociatesMaterial
     HasMaterial,
 }
-
-//==
-// Additional helpers for informational purposes
-
-public static class Helpers
-{
-    // Names of special parameter containing data extracted from Revit API method or property invocations 
-    public static string[] ApiParameterNames = [
-        "rvt:ApiTypeName",
-        "rvt:UniqueId",
-        "rvt:LastChangedBy",
-        "rvt:LastSavedTime",
-        "rvt:FromRoom",
-        "rvt:ToRoom",
-        "rvt:LocationPoint",
-        "rvt:LocationEndPointA",
-        "rvt:LocationEndPointB",
-        "rvt:BoundingBoxMin",
-        "rvt:BoundingBoxMax",
-        "rvt:SolidVolume",
-        "rvt:SolidArea",
-        "rvt:LayerIndex",
-        "rvt:MEPSectionNumber",
-    ];
-
-    // Within Revit a number of classes represent entities but that do not derive from element 
-    public static string[] NonElementEntities =
-    [
-        // https://www.revitapidocs.com/2016/aa8f7f05-16c7-2fbf-5004-d819a1fd0b6d.htm
-        "rvt:type:Workset",
-        
-        // https://www.revitapidocs.com/2016/dc1a081e-8dab-565f-145d-a429098d353c.htm
-        "rvt:type:CompoundStructure",
-        
-        // Doesn't exist as an actual class, just as an index of the compound structure. Use "rvt:LayerIndex" to identify it. 
-        "rvt:pseudotype:Layer",
-        
-        // https://www.revitapidocs.com/2016/11e07082-b3f2-26a1-de79-16535f44716c.htm
-        "rvt:type:Connector",
-
-        // Part of a MEP system, which itself is an element
-        "rvt:type:MEPSection",
-    ];
-
-    // Informal and incomplete mapping of IFC Relationships to relation types for documentation purposes 
-    public static Dictionary<string, RelationType> IfcRelationToRelationType
-    = new() {
-        { "IfcRelAggregates", RelationType.MemberOf },
-        { "IfcRelAssignsToGroup", RelationType.MemberOf }, 
-        { "IfcRelDecomposes", RelationType.MemberOf },
-        { "IfcRelNests", RelationType.MemberOf }, 
-        { "IfcRelContainedInSpatialStructure", RelationType.ContainedIn },
-        { "IfcRelDefinesByType", RelationType.InstanceOf },
-        { "IfcRelVoidsElement", RelationType.HostedBy },
-        { "IfcRelConnectsPortToPort", RelationType.ConnectsTo },
-        { "IfcRelConnectsElements", RelationType.ConnectsTo },
-        { "IfcRelFillsElement", RelationType.HostedBy },
-        { "IfcPort", RelationType.HasConnector },
-        { "IfcMaterialLayerSetUsage", RelationType.HasLayer },
-        { "IfcRelAssociatesMaterial", RelationType.HasMaterial },
-    };
-}
-
