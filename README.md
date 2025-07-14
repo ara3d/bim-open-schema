@@ -8,9 +8,9 @@ in your tool of choice.
 
 ## 🎯Target Workflows
 
-1. ETL pipe: Revit/IFC → exporter → Parquet/DuckDB → downstream BI / ML.
-2. Quick inspection: Open the Parquet/DuckDB database with SQL, PowerBI or Python/Pandas.
-3. Inter‑tool hand‑off: Share a small, self‑contained bundle instead of heavyweight RVT/IFC when geometry is not required.
+1. **ETL pipe**: Revit/IFC → exporter → Parquet/DuckDB → downstream BI / ML.
+2. **Quick inspection**: Open the Parquet/DuckDB database with SQL, PowerBI or Python/Pandas.
+3. **Inter‑tool hand‑off**: Share a small, self‑contained bundle instead of heavyweight RVT/IFC when geometry is not required.
 
 ## 🧑‍🤝‍🧑Target Users
 
