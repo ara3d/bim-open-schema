@@ -61,25 +61,10 @@ public record Point(
     double Z);
 
 public record ParameterDescriptor(
-    string Name,
-    UnitIndex Units,
-    string Group);
-
-public record Unit(
+    StringIndex Name,
     // UCUM symbol
-    string Symbol,
-
-    // ISO 80000 quantity name 
-    string IsoQuantity,
-    
-    // Official symbol of the base SI unit
-    string SiBaseUnitSymbol,
-
-    // Conversion factor to the SI base unit
-    double SiFactor,
-
-    // Offset required to be added before conversion the SI base unit
-    double SiOffset = 0);
+    StringIndex Units,
+    StringIndex Group);
 
 //==
 // Parameter data 
