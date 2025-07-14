@@ -33,7 +33,7 @@ ETL (Extract, Transform, and Load) is a three-phase computing process where data
 We are in the process of developing tools and examples to convert BIM Open Schema to/from:
 
 - [DuckDB](https://duckdb.org/) - A simple, fast, open-source database system optimized for in-process analytical work.
-- [Apache Parquet](https://parquet.apache.org/) - an open source, column-oriented data file format designed for efficient data storage and retrieval with supported in many programming language and analytics tools.
+- [Apache Parquet](https://parquet.apache.org/) - an efficient, open source, column-oriented data file format with wide tooling support.
 - [JSON](https://json.org) - A lightweight and ubiquitous human-readable format for exchanging data over the web.
 - [MessagePack](https://msgpack.org/) - A compact and efficent binary format for interchange that can be used as a replacement for JSON.
 
