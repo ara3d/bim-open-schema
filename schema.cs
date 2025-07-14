@@ -7,7 +7,7 @@ namespace BIMOpenSchema;
 /// Optimized for efficient representation as a set of Parquet files, or a database optimized for analytics like DuckDB
 /// Provides a simple and efficient standardized way to interact with BIM data from different tools, without having to go through APIs, or ad-hoc representations
 /// </summary>
-public class BIMData_v_0_3
+public class BIMData
 {
     public List<ParameterDescriptor> Descriptors { get; set; } = [];
     public List<ParameterInt> IntegerParameters { get; set; } = [];
@@ -29,7 +29,6 @@ public enum EntityIndex : long { }
 public enum PointIndex : long { }
 public enum DocumentIndex : long { }
 public enum DescriptorIndex : long { }
-public enum TypeIndex : long { }
 public enum StringIndex : long { }
 
 //==
