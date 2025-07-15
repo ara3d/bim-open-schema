@@ -19,10 +19,10 @@ geometry.
 
 ## 📐 Design Principles
 
-• Column‑oriented storage: Each list maps cleanly to a Parquet column chunk or a DuckDB table.
-• String & point interning: Repeated values are stored once and referenced by a typed index, keeping files small.
-• EAV‑flavoured parameters: A minimal core (Entity, Descriptor) plus type‑specific value tables yields flexibility while preserving strong types.
-• Relation set: A single EntityRelation edge list expresses most graph‑like BIM relationships found in Revit or IFC.
+- _Column‑oriented storage_: Each list maps cleanly to a Parquet column chunk or a DuckDB table.
+- _String & point interning_: Repeated values are stored once and referenced by a typed index, keeping files small.
+- _EAV‑flavoured parameters_: A minimal core (Entity, Descriptor) plus type‑specific value tables yields flexibility while preserving strong types.
+- _Relation set_: A single EntityRelation edge list expresses most graph‑like BIM relationships found in Revit or IFC.
 
 ## 🤔 What is ETL? 
 
