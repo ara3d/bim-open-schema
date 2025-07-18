@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
-namespace BIMOpenSchema;
+namespace Ara3D.BimOpenSchema;
 
 // This is a helper class for incrementally constructing a BIMData object.
 public class BIMDataBuilder
@@ -12,9 +11,9 @@ public class BIMDataBuilder
     private readonly Dictionary<ParameterDescriptor, int> _descriptors = new();
     private readonly Dictionary<string, int> _strings = new();
 
-    private BIMData _data = new BIMData();
+    private BimData _data = new BimData();
 
-    public BIMData Build()
+    public BimData Build()
     {
         var r = _data;
         _data = null;

@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection.Emit;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace BIMOpenSchema;
+﻿namespace Ara3D.BimOpenSchema;
 
 public class ExpandedBIMData
 {
-    public ExpandedBIMData(BIMData data)
+    public ExpandedBIMData(BimData data)
     {
         Data = data;
 
@@ -97,7 +92,7 @@ public class ExpandedBIMData
     public ExpandedParameter Add(ParameterString p)
         => Add(Data.Get(p.Value), p.Entity, p.Descriptor);
 
-    public BIMData Data;
+    public BimData Data;
     public Dictionary<EntityIndex, string> EntityNames = new();
     public List<ExpandedParameter> Parameters { get; set; } = [];
     public List<ExpandedEntity> Entities { get; set; } = [];

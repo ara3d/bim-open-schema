@@ -1,16 +1,23 @@
 using Ara3D.DataSetBrowser.WPF;
 using Ara3D.Utils;
-using BIMOpenSchema;
 using System.Diagnostics;
 using System.IO.Compression;
 using Ara3D.BimOpenSchema;
 using Ara3D.BimOpenSchema.IO;
+using Ara3D.BimOpenSchema.Tests;
 using Ara3D.DataTable;
 
 namespace Ara3D.BIMOpenSchema.Tests
 {
     public static class Tests
     {
+        public class SerializationStats
+        {
+            public TimeSpan Elapsed;
+            public string Path;
+            public long Size;
+        }
+
         public static T Read<T>(Func<FilePath, T> f, FilePath fp, string description, out SerializationStats stats)
         {
             var sw = Stopwatch.StartNew();
@@ -45,7 +52,7 @@ namespace Ara3D.BIMOpenSchema.Tests
             var outputFile = OutputFolder.RelativeFile("bimdata.duckdb");
             var data = GetData();
             var stats = Write(data,
-                (fp, bd) => Serialization.WriteDuckDB(bd, fp), outputFile);
+                (fp, bd) => BimDataSerializer.WriteDuckDB(bd, fp), outputFile);
             OutputStats(data, stats);
         }
 
@@ -75,7 +82,7 @@ namespace Ara3D.BIMOpenSchema.Tests
             var outputFile = OutputFolder.RelativeFile("bimdata.xlsx");
             var data = GetData();
             var stats = Write(data,
-                (fp, bd) => Serialization.WriteToExcel(bd, fp), outputFile);
+                (fp, bd) => BimDataSerializer.WriteToExcel(bd, fp), outputFile);
             OutputStats(data, stats);
         }
 
@@ -85,7 +92,7 @@ namespace Ara3D.BIMOpenSchema.Tests
             var outputFile = OutputFolder.RelativeFile("bimdata.json.zip");
             var data = GetData();
             var stats = Write(data, 
-                (fp, bd) => Serialization.WriteBIMDataToJson(bd, fp, true, true), outputFile);
+                (fp, bd) => BimDataSerializer.WriteToJson(bd, fp, true, true), outputFile);
             OutputStats(data, stats);
         }
 
@@ -95,11 +102,11 @@ namespace Ara3D.BIMOpenSchema.Tests
             var outputFile = OutputFolder.RelativeFile("bimdata.json");
             var data = GetData();
             var stats = Write(data, 
-                (fp, bd) => Serialization.WriteBIMDataToJson(bd, fp, true, false), outputFile);
+                (fp, bd) => BimDataSerializer.WriteToJson(bd, fp, true, false), outputFile);
             OutputStats(data, stats);
         }
 
-        public static void OutputBimData(BIMData bd)
+        public static void OutputBimData(BimData bd)
         {
             Console.WriteLine($"# documents = {bd.Documents.Count}");
             Console.WriteLine($"# entities = {bd.Entities.Count}");
@@ -114,7 +121,7 @@ namespace Ara3D.BIMOpenSchema.Tests
             Console.WriteLine($"# relations = {bd.Relations.Count}");
         }
 
-        public static void OutputStats(BIMData bd, SerializationStats stats)
+        public static void OutputStats(BimData bd, SerializationStats stats)
         {
             OutputBimData(bd);
             Console.WriteLine($"Wrote {PathUtil.BytesToString(stats.Size)}");
@@ -122,7 +129,7 @@ namespace Ara3D.BIMOpenSchema.Tests
             Console.WriteLine($"File name is {stats.Path}");
         }
 
-        public static BIMData GetData()
+        public static BimData GetData()
         {
             throw new NotImplementedException();
         }

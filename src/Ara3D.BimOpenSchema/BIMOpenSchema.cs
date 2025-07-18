@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Reflection.Metadata;
-
-namespace BIMOpenSchema;
+﻿namespace Ara3D.BimOpenSchema;
 
 /// <summary>
 /// Contains all the BIM Data for a discipline or federated model .
@@ -25,7 +22,7 @@ namespace BIMOpenSchema;
 /// This data structure can also be used directly in C# code as am efficient
 /// in-memory data structure for code-based workflows.
 /// </summary>
-public class BIMData
+public class BimData
 {
     public List<ParameterDescriptor> Descriptors { get; set; } = [];
     public List<ParameterInt> IntegerParameters { get; set; } = [];

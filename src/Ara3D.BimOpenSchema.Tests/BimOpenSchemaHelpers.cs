@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BIMOpenSchema;
+﻿namespace Ara3D.BimOpenSchema;
 
 public static class BIMOpenSchemaHelpers
 {
