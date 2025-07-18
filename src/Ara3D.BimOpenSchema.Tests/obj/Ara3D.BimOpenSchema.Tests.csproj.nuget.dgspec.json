@@ -1,0 +1,642 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Tests\\Ara3D.BimOpenSchema.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Browser\\Ara3D.BimOpenSchema.Browser.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Browser\\Ara3D.BimOpenSchema.Browser.csproj",
+        "projectName": "Ara3D.BimOpenSchema.Browser",
+        "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Browser\\Ara3D.BimOpenSchema.Browser.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Browser\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0-windows7.0": {
+            "targetAlias": "net9.0-windows",
+            "projectReferences": {
+              "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj"
+              },
+              "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj"
+              },
+              "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
+          "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.105.0, )"
+            },
+            "DuckDB.NET.Data.Full": {
+              "target": "Package",
+              "version": "[1.3.2, )"
+            },
+            "MessagePack": {
+              "target": "Package",
+              "version": "[3.1.4, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.3, )"
+            },
+            "Parquet.Net": {
+              "target": "Package",
+              "version": "[5.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            },
+            "Microsoft.WindowsDesktop.App.WPF": {
+              "privateAssets": "none"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj",
+        "projectName": "Ara3D.BimOpenSchema.IO",
+        "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "ClosedXML": {
+              "target": "Package",
+              "version": "[0.105.0, )"
+            },
+            "DuckDB.NET.Data.Full": {
+              "target": "Package",
+              "version": "[1.3.2, )"
+            },
+            "Parquet.Net": {
+              "target": "Package",
+              "version": "[5.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Tests\\Ara3D.BimOpenSchema.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Tests\\Ara3D.BimOpenSchema.Tests.csproj",
+        "projectName": "Ara3D.BimOpenSchema.Tests",
+        "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Tests\\Ara3D.BimOpenSchema.Tests.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net9.0-windows"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net9.0-windows7.0": {
+            "targetAlias": "net9.0-windows",
+            "projectReferences": {
+              "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Browser\\Ara3D.BimOpenSchema.Browser.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.Browser\\Ara3D.BimOpenSchema.Browser.csproj"
+              },
+              "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema.IO\\Ara3D.BimOpenSchema.IO.csproj"
+              },
+              "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.14.0, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.9.0, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.5.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj",
+        "projectName": "Ara3D.BimOpenSchema",
+        "projectPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\Ara3D.BimOpenSchema.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\bim-open-schema\\src\\Ara3D.BimOpenSchema\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Collections\\Ara3D.Collections.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Collections\\Ara3D.Collections.csproj",
+        "projectName": "Ara3D.Collections",
+        "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Collections\\Ara3D.Collections.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Collections\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj",
+        "projectName": "Ara3D.DataTable",
+        "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\Ara3D.DataTable.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.DataTable\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Collections\\Ara3D.Collections.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Collections\\Ara3D.Collections.csproj"
+              },
+              "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.PropKit\\Ara3D.PropKit.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.PropKit\\Ara3D.PropKit.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.PropKit\\Ara3D.PropKit.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.PropKit\\Ara3D.PropKit.csproj",
+        "projectName": "Ara3D.PropKit",
+        "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.PropKit\\Ara3D.PropKit.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.PropKit\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Utils\\Ara3D.Utils.csproj": {
+                "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Utils\\Ara3D.Utils.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Utils\\Ara3D.Utils.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Utils\\Ara3D.Utils.csproj",
+        "projectName": "Ara3D.Utils",
+        "projectPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Utils\\Ara3D.Utils.csproj",
+        "packagesPath": "C:\\Users\\cdigg\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\cdigg\\git\\studio\\ara3d-sdk\\src\\Ara3D.Utils\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\cdigg\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.100"
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

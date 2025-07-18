@@ -1,0 +1,12 @@
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\bin\Release\net8.0\Ara3D.BIMOpenSchema.deps.json
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\bin\Release\net8.0\Ara3D.BIMOpenSchema.dll
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\bin\Release\net8.0\Ara3D.BIMOpenSchema.pdb
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.AssemblyInfoInputs.cache
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.AssemblyInfo.cs
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.csproj.CoreCompileInputs.cache
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.sourcelink.json
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.dll
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\refint\Ara3D.BIMOpenSchema.dll
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\Ara3D.BIMOpenSchema.pdb
+C:\Users\cdigg\git\studio\ara3d-sdk\examples\Ara3D.BIMOpenSchema\obj\Release\net8.0\ref\Ara3D.BIMOpenSchema.dll

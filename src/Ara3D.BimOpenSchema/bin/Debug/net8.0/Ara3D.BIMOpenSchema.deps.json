@@ -1,0 +1,85 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "Ara3D.BIMOpenSchema/1.0.0": {
+        "dependencies": {
+          "Ara3D.DataTable": "1.0.0"
+        },
+        "runtime": {
+          "Ara3D.BIMOpenSchema.dll": {}
+        }
+      },
+      "Ara3D.Collections/1.0.0": {
+        "runtime": {
+          "Ara3D.Collections.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Ara3D.DataTable/1.0.0": {
+        "dependencies": {
+          "Ara3D.Collections": "1.0.0",
+          "Ara3D.PropKit": "1.0.0"
+        },
+        "runtime": {
+          "Ara3D.DataTable.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Ara3D.PropKit/1.0.0": {
+        "dependencies": {
+          "Ara3D.Utils": "1.0.0"
+        },
+        "runtime": {
+          "Ara3D.PropKit.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "Ara3D.Utils/1.0.0": {
+        "runtime": {
+          "Ara3D.Utils.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Ara3D.BIMOpenSchema/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ara3D.Collections/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ara3D.DataTable/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ara3D.PropKit/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Ara3D.Utils/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
