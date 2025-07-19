@@ -1,11 +1,11 @@
 # BIM Open Schema 
 
-> From BIM to [Parquet](https://parquet.apache.org/) and [DuckDB](https://duckdb.org/) 
+>  _BIM Analytics via Parquet and DuckDB_
 
-**BIM Open Schema** is a portable, efficient, and analytics‑friendly snapshot of a potentially federated BIM model that can be written 
-once and then queried from any data tool - without Revit/IFC APIs in the loop
+**BIM Open Schema** is an open formal specification of BIM data that is designed for modern 
+analytics tools and optimized for columnar data formats like Parquet and DuckDB. 
 
-The official specifcation [is in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/src/Ara3D.BimOpenSchema/BIMOpenSchema.cs).
+The official specification [is in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/src/Ara3D.BimOpenSchema/BIMOpenSchema.cs).
 
 ## 🌐 Platform and Language Agnostic 
 
@@ -13,7 +13,9 @@ The schema is optimized for columnar data formats, but it is *not* tied to any o
 and can be easily converted to many different formats for fast inspection in your tool of choice. 
 
 This project comes with C# code which acts as the official specification, but the schema is platform independent 
-and language agnostic. We welcome code contributions from any language. 
+and language agnostic. 
+
+We welcome code contributions in any language. 
 
 ## 🎯Target Workflows
 
