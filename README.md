@@ -1,14 +1,23 @@
 # BIM Open Schema 
 
+> From BIM to [Parquet](https://parquet.apache.org/) and [DuckDB](https://duckdb.org/) 
+
 **BIM Open Schema** is a portable, efficient, and analytics‑friendly snapshot of a potentially federated BIM model that can be written 
 once and then queried from any data tool - without Revit/IFC APIs in the loop
 
-It is *not* tied to any one particular serialization format, and can be easily converted to many different formats for fast inspection 
-in your tool of choice. 
+The official specifcation [is in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/src/Ara3D.BimOpenSchema/BIMOpenSchema.cs).
+
+## 🌐 Platform and Language Agnostic 
+
+The schema is optimized for columnar data formats, but it is *not* tied to any one particular serialization format, 
+and can be easily converted to many different formats for fast inspection in your tool of choice. 
+
+This project comes with C# code which acts as the official specification, but the schema is platform independent 
+and language agnostic. We welcome code contributions from any language. 
 
 ## 🎯Target Workflows
 
-1. **ETL pipe**  :  Revit/IFC → exporter → Parquet/DuckDB → downstream BI / ML.
+1. **ETL pipe**  :  Revit/IFC -> Parquet/DuckDB -> downstream BI/ML.
 2. **Quick inspection**  :  Open the Parquet/DuckDB database with SQL, PowerBI or Python/Pandas.
 3. **Inter‑tool hand‑off**  :  Share a small, self‑contained bundle instead of heavyweight RVT/IFC when geometry is not required.
 
@@ -26,16 +35,25 @@ geometry.
 
 ## 🤔 What is ETL? 
 
-ETL (Extract, Transform, and Load) is a three-phase computing process where data is extracted from an input source, transformed (including cleaning), and loaded into an output data container.
+ETL (Extract, Transform, and Load) is a three-phase computing process where data is extracted from an input source, 
+transformed (including cleaning), and loaded into an output data container.
 
 ## 📝Serialization Formats (Readers and Writers) 
 
-We are in the process of developing tools and examples to convert BIM Open Schema to/from:
+We provide tools and examples to convert BIM Open Schema to/from:
 
 - [DuckDB](https://duckdb.org/) - A simple, fast, open-source database system optimized for in-process analytical work.
-- [Apache Parquet](https://parquet.apache.org/) - an efficient, open source, column-oriented data file format with wide tooling support.
+- [Parquet](https://parquet.apache.org/) - an efficient, open source, column-oriented data file format with wide tooling support.
 - [JSON](https://json.org) - A lightweight and ubiquitous human-readable format for exchanging data over the web.
-- [MessagePack](https://msgpack.org/) - A compact and efficent binary format for interchange that can be used as a replacement for JSON.
+
+## 🔗 Related Projects
+
+Some open-source projects which are related:
+
+- [SVF2 to Parquet](https://github.com/wallabyway/vibe-duckdb-svf2-properties)
+- [Fragments](https://github.com/ThatOpen/engine_fragment) 
+- [VIM Format](https://github.com/vimaec/vim-format)
+- [IFC5](https://github.com/buildingSMART/IFC5-development)
 
 ## 👥 Contributors and Supporters
 
@@ -48,3 +66,4 @@ Active contributors are (in alphabetical order):
 * Karim Daw - Gensler
 * Tomo Sugeta - Cundall
 * Yskert Schindel - Vyssuals
+
