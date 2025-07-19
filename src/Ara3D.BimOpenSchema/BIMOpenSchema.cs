@@ -1,14 +1,14 @@
 ﻿namespace Ara3D.BimOpenSchema;
 
 /// <summary>
-/// Contains all the BIM Data for a discipline or federated model .
+/// Contains all the BIM Data for a discipline or federated model.
 /// 
 /// Optimized for efficient loading into analytical tools as a set of Parquet files, or a DuckDB database.
 /// Provides a simple and efficient standardized way to interact with BIM data from different tools,
 /// without having to go through APIs, or ad-hoc representations.
 ///
 /// It is optimized for space and load-times, not ease of queries.
-/// A typical workflow would be to ingest this into a database then to use SQL to
+/// A typical workflow would be to ingest this into a DuckDB database then to use SQL to
 /// create denormalized (wide) tables depending on an end-user's specific use-case
 /// and what data they are interested in.  
 /// 
@@ -89,11 +89,11 @@ public record Point(
 
 /// <summary>
 /// Important for grouping the different kinds of parameter data ...
-/// otherwise we can have two parameter with the same name, but different units. 
+/// otherwise we can have two parameter with the same name, but different underlying parameter types.
 /// </summary>
 public enum ParameterType
 {
-    Long, 
+    Int, 
     Double,
     Entity,
     String,
@@ -167,7 +167,10 @@ public record EntityRelation(
     EntityIndex EntityB,
     RelationType RelationType);
 
-public enum RelationType : int
+/// <summary>
+/// The various kinds of relations, aimed at covering both the Revit API and IFC
+/// </summary>
+public enum RelationType
 {
     // For parts of a whole. Represents composition.
     PartOf = 0,

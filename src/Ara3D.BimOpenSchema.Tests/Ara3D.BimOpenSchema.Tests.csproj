@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Ara3D.BimOpenSchema.IO\Ara3D.BimOpenSchema.IO.csproj" />
     <ProjectReference Include="..\Ara3D.BimOpenSchema.Browser\Ara3D.BimOpenSchema.Browser.csproj" />
-    <ProjectReference Include="..\Ara3D.BimOpenSchema\Ara3D.BimOpenSchema.csproj" />
   </ItemGroup>
 
   <ItemGroup>
