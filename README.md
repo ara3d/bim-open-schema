@@ -57,7 +57,7 @@ Some open-source projects which are related:
 
 ## 👥 Contributors and Supporters
 
-Supporting this project is as simple as [providing feedback](https://github.com/ara3d/bim-open-schema/issues/new?template=feedback.md).
+Supporting and contributing to this project is as simple as [providing feedback](https://github.com/ara3d/bim-open-schema/issues/new?template=feedback.md).
 
 Active contributors are (in alphabetical order): 
 
@@ -67,3 +67,9 @@ Active contributors are (in alphabetical order):
 * Tomo Sugeta - Cundall
 * Yskert Schindel - Vyssuals
 
+We have an active [Discord server and discussion forum](https://discord.gg/u3MtaAASGu) that you can also join.
+
+## 💼 Commercial Support and Services 
+
+If you are interesting in professional help in leveraging the format and learning what you can do with it, reach out to 
+us at [info@ara3d.com](mailto:info@ara3d.com).
