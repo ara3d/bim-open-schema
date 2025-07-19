@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Ara3D.BimOpenSchema.IO</PackageId>
-    <Version>1.0.0</Version>
+    <Version>0.9.0</Version>
     <Authors>Ara3D</Authors>
     <Company>Ara3D</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -10,7 +10,8 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageOutputPath>$(MSBuildProjectDirectory)\..\..\artifacts</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\..\README.md" Link="README.md"  Pack="true" PackagePath="" />
     <ProjectReference Include="..\Ara3D.BimOpenSchema\Ara3D.BimOpenSchema.csproj" />
   </ItemGroup>
 
