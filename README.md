@@ -48,6 +48,10 @@ We provide tools and examples to convert BIM Open Schema to/from:
 - [Parquet](https://parquet.apache.org/) - an efficient, open source, column-oriented data file format with wide tooling support.
 - [JSON](https://json.org) - A lightweight and ubiquitous human-readable format for exchanging data over the web.
 
+To extract data from Revit you can use **[Bowerbird](https://github.com/ara3d/bowerbird)** and the command _"Export BIM Open Schema"_: 
+
+<img width="1699" height="1002" alt="image" src="https://github.com/user-attachments/assets/a732808c-b18b-47fe-84fd-8886a50bcbd3" />
+
 ## 🔗 Related Projects
 
 Some open-source projects which are related:
