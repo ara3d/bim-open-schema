@@ -1,5 +1,7 @@
 # BIM Open Schema 
 
+![NuGet Version](https://img.shields.io/nuget/v/Ara3D.BimOpenSchema.IO)
+
 >  _BIM Analytics via Parquet and DuckDB_
 
 **BIM Open Schema** is an open formal specification of BIM data that is designed for modern 
@@ -12,9 +14,10 @@ This repo provides:
 
 1. Official specification [in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/src/Ara3D.BimOpenSchema/BIMOpenSchema.cs).
 2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/data/input) generated from the Snowdon sample 
-3. C# libraries and tests files for reading / writing BIM Open Schema data.
-  
-The C# libraries are also [distributed on Nuget](https://www.nuget.org/packages/Ara3D.BimOpenSchema.IO). 
+3. C# libraries and tests files for reading / writing BIM Open Schema data, also [distributed on Nuget](https://www.nuget.org/packages/Ara3D.BimOpenSchema.IO). 
+4. WPF-Based GUI Sample  
+
+<img width="776" height="432" alt="image" src="https://github.com/user-attachments/assets/1dc9a766-32b5-47f7-b78c-49b0167993a9" />
 
 ## 🌐 Platform and Language Agnostic 
 
