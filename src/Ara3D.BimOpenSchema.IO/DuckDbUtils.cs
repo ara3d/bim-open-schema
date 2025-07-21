@@ -1,10 +1,15 @@
-﻿using Ara3D.DataTable;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using Ara3D.DataTable;
 using Ara3D.Utils;
 using DuckDB.NET.Data;
+using DataRow = System.Data.DataRow;
 
 namespace Ara3D.BimOpenSchema.IO;
 
-public static class DuckDbWriter
+public static class DuckDbUtils
 {
     public static void WriteToDuckDB(this IDataSet set, FilePath fileName)
     {
@@ -87,5 +92,75 @@ public static class DuckDbWriter
                 else row.AppendValue(v.ToString());
                 break;
         }
+    }
+    
+    public static object[] ReadColumnValuesAsObjects(
+        this DuckDBConnection conn,
+        string tableName,
+        string columnName)
+    {
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText = $"SELECT \"{columnName}\" FROM \"{tableName}\";";
+        using var rdr = cmd.ExecuteReader();
+        var buffer = new List<object>();
+        while (rdr.Read())
+            buffer.Add(rdr.IsDBNull(0) ? default : rdr.GetValue(0));
+        return buffer.ToArray();
+    }
+
+    public static T[] ReadColumnValues<T>(
+        this DuckDBConnection conn,
+        string tableName,
+        string columnName)
+    {
+        using var cmd = conn.CreateCommand();
+        cmd.CommandText = $"SELECT \"{columnName}\" FROM \"{tableName}\";";
+        using var rdr = cmd.ExecuteReader();
+        var buffer = new List<T>();
+        while (rdr.Read())
+            buffer.Add(rdr.IsDBNull(0) ? default : rdr.GetFieldValue<T>(0));
+        return buffer.ToArray();
+    }
+
+    public static IDataTable ReadTable(this DuckDBConnection conn, string tableName)
+    {
+        if (conn.State == ConnectionState.Closed)
+            conn.Open();
+        using var cmd = conn.CreateCommand();
+        // We only need metadata, so LIMIT 0 avoids scanning the table.
+        cmd.CommandText = $"SELECT * FROM \"{tableName}\" LIMIT 0;";
+        using var reader = cmd.ExecuteReader(CommandBehavior.SchemaOnly);
+        return reader.ToDataTable(tableName);
+    }
+
+    public static IReadOnlyList<string> GetTableNames(this DuckDBConnection conn,
+        bool includeViews = false)
+    {
+        var schema = conn.GetSchema("Tables");
+
+        var rows = schema.Rows.Cast<DataRow>();
+
+        if (!includeViews)
+            rows = rows.Where(r => string.Equals((string)r["TABLE_TYPE"],
+                "BASE TABLE",
+                StringComparison.OrdinalIgnoreCase));
+
+        return rows.Select(r => (string)r["TABLE_NAME"])
+            .OrderBy(n => n, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    public static IDataSet ToDataSet<T>(this DuckDBConnection conn)
+    {
+        if (conn.State == ConnectionState.Closed)
+            conn.Open();
+        var tableNames = conn.GetTableNames();
+        var r = new DataSetBuilder();
+        foreach (var t in tableNames)
+        {
+            var table = ReadTable(conn, t);
+            r.AddTable(table);
+        }
+        return r;
     }
 }

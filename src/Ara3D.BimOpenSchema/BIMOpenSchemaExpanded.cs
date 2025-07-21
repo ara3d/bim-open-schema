@@ -1,4 +1,6 @@
-﻿namespace Ara3D.BimOpenSchema;
+﻿using System.Collections.Generic;
+
+namespace Ara3D.BimOpenSchema;
 
 public class ExpandedBIMData
 {

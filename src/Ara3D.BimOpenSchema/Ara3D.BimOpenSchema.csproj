@@ -1,13 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <PackageId>Ara3D.BimOpenSchema</PackageId>
+    <Version>1.0.1</Version>
+    <Authors>Ara3D</Authors>
+    <Company>Ara3D</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/ara3d/bim-open-schema</RepositoryUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageOutputPath>$(MSBuildProjectDirectory)\..\..\artifacts</PackageOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ara3D.SDK" Version="1.4.0" />
+    <None Include="..\..\README.md" Link="README.md" Pack="true" PackagePath="" />
+    <PackageReference Include="Ara3D.SDK" Version="1.4.1" />
   </ItemGroup>
+
+
 
 </Project>

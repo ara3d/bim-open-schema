@@ -61,8 +61,9 @@ Some open-source projects which are related:
 
 Supporting and contributing to this project is as simple as [providing feedback](https://github.com/ara3d/bim-open-schema/issues/new?template=feedback.md).
 
-Active contributors are (in alphabetical order): 
+Some of the people who have contributed are (in alphabetical order): 
 
+* Ahmad Saleem Z - AnkerDB
 * Christopher Diggins - Ara 3D
 * Daryl Irvine - DG Jones and Partners 
 * Karim Daw - Gensler

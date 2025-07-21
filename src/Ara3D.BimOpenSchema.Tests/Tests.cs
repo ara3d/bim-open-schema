@@ -1,4 +1,3 @@
-using Ara3D.DataSetBrowser.WPF;
 using Ara3D.Utils;
 using System.Diagnostics;
 using System.IO.Compression;
@@ -43,67 +42,55 @@ namespace Ara3D.BIMOpenSchema.Tests
             };
         }
 
-        public static DirectoryPath InputFolder = PathUtil.GetCallerSourceFolder().RelativeFolder("..", "input");
-        public static DirectoryPath OutputFolder = PathUtil.GetCallerSourceFolder().RelativeFolder("..", "output");
+        public static DirectoryPath InputFolder = PathUtil.GetCallerSourceFolder().RelativeFolder("..", "..", "data", "input");
+        public static DirectoryPath OutputFolder = PathUtil.GetCallerSourceFolder().RelativeFolder("..", "..", "data", "output");
+
+        public static FilePath InputFile => InputFolder.RelativeFile("snowdon.bimdata.parquet.zip");
 
         [Test]
-        public static void TestDuckDB()
+        public static void TestInputFileExists()
         {
-            var outputFile = OutputFolder.RelativeFile("bimdata.duckdb");
-            var data = GetData();
-            var stats = Write(data,
-                (fp, bd) => BimDataSerializer.WriteDuckDB(bd, fp), outputFile);
-            OutputStats(data, stats);
+            Assert.IsTrue(InputFile.Exists());
+            OutputFileDetails(InputFile);
+        }
+
+        public static BimData GetTestInputData()
+            => InputFile.ReadBimDataFromParquetZip();
+
+        public static void OutputFileDetails(FilePath fp)
+        {
+            Console.WriteLine($"File: {fp}");
+            Console.WriteLine($"Has size: {fp.GetFileSizeAsString()}");
         }
 
         [Test]
-        public static void TestParquet()
+        public static void TestReadInputFile()
         {
-            var outputFolder = OutputFolder.RelativeFolder("parquet");
-            outputFolder.CreateAndClearDirectory();
+            var bd = GetTestInputData();
+            OutputBimData(bd);
+        }
+
+        public static void TestWriteData(BimData data, string ext, Action<BimData, FilePath> writer)
+        {
+            var outputFile = InputFile.ChangeDirectoryAndExt(OutputFolder, ext);
             var sw = Stopwatch.StartNew();
-            var data = GetData();
-            var loadTime = sw.Elapsed;
-            sw.Restart();
-            var dataSet = data.ToDataSet();
-            var toDataSetTime = sw.Elapsed;
-            var tasks = dataSet.Tables.Select((t, i) => t.WriteParquetAsync(outputFolder.RelativeFile($"{t.Name}.parquet")));
-            Task.WaitAll(tasks);
-            var writeTime = sw.Elapsed;
-            Console.WriteLine($"Loading in {loadTime.Seconds:F} seconds");
-            Console.WriteLine($"Conversion in {toDataSetTime.Seconds:F} seconds");
-            Console.WriteLine($"Writing in {writeTime.Seconds:F} seconds");
-            Console.WriteLine($"Total size of files = {PathUtil.BytesToString(outputFolder.GetDirectorySizeInBytes())}");
+            writer.Invoke(data, outputFile);
+            var sz = outputFile.GetFileSizeAsString();
+            Console.WriteLine($"Wrote {sz} to {outputFile.GetFileName()} in {sw.Elapsed.Seconds:F} seconds");
         }
 
         [Test]
-        public static void TestExcel()
+        public static void TestWriter()
         {
-            var outputFile = OutputFolder.RelativeFile("bimdata.xlsx");
-            var data = GetData();
-            var stats = Write(data,
-                (fp, bd) => BimDataSerializer.WriteToExcel(bd, fp), outputFile);
-            OutputStats(data, stats);
-        }
+            var sw = Stopwatch.StartNew();
+            var bimData = GetTestInputData();
+            Console.WriteLine($"Loaded {InputFile.GetFileSizeAsString()} of BIM data in {sw.Elapsed.Seconds:F} seconds");
 
-        [Test]
-        public static void TestJsonWithZip()
-        {
-            var outputFile = OutputFolder.RelativeFile("bimdata.json.zip");
-            var data = GetData();
-            var stats = Write(data, 
-                (fp, bd) => BimDataSerializer.WriteToJson(bd, fp, true, true), outputFile);
-            OutputStats(data, stats);
-        }
-
-        [Test]
-        public static void TestJson()
-        {
-            var outputFile = OutputFolder.RelativeFile("bimdata.json");
-            var data = GetData();
-            var stats = Write(data, 
-                (fp, bd) => BimDataSerializer.WriteToJson(bd, fp, true, false), outputFile);
-            OutputStats(data, stats);
+            TestWriteData(bimData, "duckdb", (bd, f) => bd.WriteDuckDB(f));
+            TestWriteData(bimData, "xlsx", (bd, f) => bd.WriteToExcel(f));
+            TestWriteData(bimData, "json", (bd, f) => bd.WriteToJson(f, true, false));
+            TestWriteData(bimData, "json.zip", (bd, f) => bd.WriteToJson(f, true, true));
+            TestWriteData(bimData, "parquet.zip", (bd, f) => bd.WriteToParquetZip(f));
         }
 
         public static void OutputBimData(BimData bd)
@@ -121,65 +108,19 @@ namespace Ara3D.BIMOpenSchema.Tests
             Console.WriteLine($"# relations = {bd.Relations.Count}");
         }
 
-        public static void OutputStats(BimData bd, SerializationStats stats)
+        public static void TestParameterStatistics()
         {
-            OutputBimData(bd);
-            Console.WriteLine($"Wrote {PathUtil.BytesToString(stats.Size)}");
-            Console.WriteLine($"Took {stats.Elapsed.Seconds:F} seconds");
-            Console.WriteLine($"File name is {stats.Path}");
-        }
-
-        public static BimData GetData()
-        {
-            throw new NotImplementedException();
-        }
-
-        [Test]
-        public static async Task TestReadParquet()
-        {
-            var inputFolder = OutputFolder.RelativeFolder("parquet");
-            var tableTasks = inputFolder.GetFiles().Select(f => f.ReadParquet());
-            var tables = (await Task.WhenAll(tableTasks)).ToList();
-            var dataSet = new ReadOnlyDataSet(tables);
-            OutputDataSet(dataSet);
-        }
-
-        [Test]
-        public static async Task TestReadWriteParquetZip()
-        {
-            var dataSet = await ReadParquetDataSet();
-            OutputDataSet(dataSet);
-            var outputFile = OutputFolder.RelativeFile("bimdata.parquet.zip");
-            await dataSet.WriteParquetToZipAsync(outputFile);
-        }
-
-        public static async Task<IDataSet> ReadParquetDataSet()
-        {
-            var inputFolder = OutputFolder.RelativeFolder("parquet");
-            var tableTasks = inputFolder.GetFiles().Select(f => f.ReadParquet());
-            var tables = (await Task.WhenAll(tableTasks)).ToList();
-            return new ReadOnlyDataSet(tables);
-        }
-        
-        [Test]
-        public static async Task TestParameterStatistics()
-        {
-            var dataSet = await ReadParquetDataSet();
-            var bimData = dataSet.ToBimData();
-            OutputBimData(bimData);
+            var bimData = GetTestInputData();
             var d = bimData.GetStatistics();
             var stats = d.Values.OrderBy(ps => ps.Index).ToList();
             var dt = stats.ToDataTable("parameters");
-
             var outputFile = OutputFolder.RelativeFile("parameters.xlsx");
             dt.WriteToExcel(outputFile);
         }
 
-        [Test]
-        public static async Task BimDataExpanded()
+        public static void BimDataExpanded()
         {
-            var dataSet = await ReadParquetDataSet();
-            var bimData = dataSet.ToBimData();
+            var bimData = GetTestInputData();
             var expBimData = new ExpandedBIMData(bimData);
 
             var entityTable = expBimData.Entities.ToDataTable("entities");

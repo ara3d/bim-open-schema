@@ -1,4 +1,9 @@
-﻿using System.IO.Compression;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Threading.Tasks;
 using Ara3D.DataTable;
 using Ara3D.Utils;
 using Parquet;
@@ -65,20 +70,20 @@ public static class ParquetUtils
         }
     }
 
-    public static async Task<IDataTable> ReadParquet(this FilePath filePath, string? name = null)
+    public static async Task<IDataTable> ReadParquetAsync(this FilePath filePath, string? name = null)
     {
         name ??= filePath.GetFileNameWithoutExtension();
         var reader = await ParquetReader.CreateAsync(filePath);
         var parquetColumns = await reader.ReadEntireRowGroupAsync();
-        var araColumns = Enumerable.ToList<ParquetColumnAdpater>(parquetColumns.Select((c, i) => new ParquetColumnAdpater(c, i)));
+        var araColumns = parquetColumns.Select((c, i) => new ParquetColumnAdpater(c, i)).ToList();
         return new ReadOnlyDataTable(name, araColumns);
     }
 
-    public static async Task<IDataTable> ReadParquet(this Stream stream, string name)
+    public static async Task<IDataTable> ReadParquetAsync(this Stream stream, string name)
     {
         var reader = await ParquetReader.CreateAsync(stream);
         var parquetColumns = await reader.ReadEntireRowGroupAsync();
-        var araColumns = Enumerable.ToList<ParquetColumnAdpater>(parquetColumns.Select((c, i) => new ParquetColumnAdpater(c, i)));
+        var araColumns = parquetColumns.Select((c, i) => new ParquetColumnAdpater(c, i)).ToList();
         return new ReadOnlyDataTable(name, araColumns);
     }
 
@@ -102,7 +107,7 @@ public static class ParquetUtils
             await entryStream.CopyToAsync(ms);
 
             ms.Position = 0;
-            var table = await ReadParquet(ms, Path.GetFileNameWithoutExtension(entry.Name));
+            var table = await ReadParquetAsync(ms, Path.GetFileNameWithoutExtension(entry.Name));
             tables.Add(table);
         }
 
