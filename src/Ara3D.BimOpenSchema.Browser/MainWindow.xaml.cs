@@ -13,18 +13,29 @@ namespace Ara3D.BimOpenSchema.Browser
         public MainWindow()
         {
             InitializeComponent();
-            var fp = PathUtil.GetCallerSourceFolder().RelativeFile("..", "input", "bimdata.mpz");
+            Loaded += MainWindow_Loaded; 
+        }
 
-            // TODO: read from the file. 
-            var dataSet = new ReadOnlyDataSet([]);
-            
-            foreach (var t in dataSet.Tables)
+        private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // 1. Build the file path
+            var fp = PathUtil.GetCallerSourceFolder()
+                .RelativeFile("..", "..", "data", "input",
+                    "snowdon.bimdata.parquet.zip");
+
+            // 2. Do the I/O *asynchronously* without blocking the UI thread
+            var dataSet = await fp.ReadParquetFromZipAsync()
+                .ConfigureAwait(false);   // don’t capture UI ctx
+
+            // 3. Marshal back to the UI thread for UI work (if you used ConfigureAwait(false))
+            await Dispatcher.InvokeAsync(() =>
             {
-                var dataGrid = TabControl.AddDataGridTab(t.Name);
-                dataGrid.AssignDataTable(t);
-            }
-
-
+                foreach (var t in dataSet.Tables)
+                {
+                    var grid = TabControl.AddDataGridTab(t.Name);
+                    grid.AssignDataTable(t);
+                }
+            });
         }
     }
 }   
