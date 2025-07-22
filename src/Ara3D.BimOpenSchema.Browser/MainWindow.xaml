@@ -7,7 +7,22 @@
         mc:Ignorable="d"
         Icon="ara3d.ico"
         Title="BIM Open Schema Browser - from Ara 3D" Height="450" Width="800">
-    <Grid>
-		<TabControl x:Name="TabControl"></TabControl>
-    </Grid>
+	<!-- DockPanel keeps the Menu pinned to the top and the TabControl fills the rest -->
+	<DockPanel>
+
+		<!-- Menu bar -->
+		<Menu DockPanel.Dock="Top">
+			<!-- “Open …” command -->
+			<MenuItem Header="_Open…" Click="Open_Click"/>
+
+			<!-- Checkable “Raw” toggle -->
+			<MenuItem x:Name="RawMenuItem" Header="_Raw"
+			          IsCheckable="True"
+			          IsChecked="True"
+			          Click="Raw_Click"/>
+		</Menu>
+
+		<!-- Your existing content -->
+		<TabControl x:Name="TabControl"/>
+	</DockPanel>
 </Window>

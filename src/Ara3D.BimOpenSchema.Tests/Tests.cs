@@ -118,16 +118,21 @@ namespace Ara3D.BIMOpenSchema.Tests
             dt.WriteToExcel(outputFile);
         }
 
-        public static void BimDataExpanded()
+        [Test]
+        public static void BimDataObjectModel()
         {
             var bimData = GetTestInputData();
-            var expBimData = new ExpandedBIMData(bimData);
-
-            var entityTable = expBimData.Entities.ToDataTable("entities");
-            entityTable.WriteToExcel(OutputFolder.RelativeFile("expanded-entities.xlsx"));
-            
-            var paramTable = expBimData.Parameters.ToDataTable("parameters");
-            paramTable.WriteToExcel(OutputFolder.RelativeFile("expanded-parameters.xlsx"));
+            var model = new BimDataModel(bimData);
+            Console.WriteLine($"# documents = {model.Documents.Count}");
+            Console.WriteLine($"# entities = {model.Entities.Count}");
+            Console.WriteLine($"# descriptors = {model.Descriptors.Count}");
+            var cats = model.Entities
+                .Select(e => e.Category)
+                .Distinct()
+                .OrderBy(c => c)
+                .ToList();
+            foreach (var cat in cats)
+                Console.WriteLine($"Category: {cat}");
         }
 
         public static void OutputDataSet(IDataSet set)

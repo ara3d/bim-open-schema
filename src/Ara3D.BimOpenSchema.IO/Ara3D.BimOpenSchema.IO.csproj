@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <PackageId>Ara3D.BimOpenSchema.IO</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>Ara3D</Authors>
     <Company>Ara3D</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
