@@ -84,6 +84,7 @@ Some of the people who have contributed are (in alphabetical order):
 * Daryl Irvine - DG Jones and Partners 
 * Karim Daw - Gensler
 * Pablo Derendinger - e-verse
+* Tom van Diggelen - BIMcollab
 * Tomo Sugeta - Cundall
 * Valentin Noves - e-verse
 * Yskert Schindel - Vyssuals
