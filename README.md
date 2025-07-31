@@ -83,7 +83,9 @@ Some of the people who have contributed are (in alphabetical order):
 * Christopher Diggins - Ara 3D
 * Daryl Irvine - DG Jones and Partners 
 * Karim Daw - Gensler
+* Pablo Derendinger - e-verse
 * Tomo Sugeta - Cundall
+* Valentin Noves - e-verse
 * Yskert Schindel - Vyssuals
 
 We have an active [Discord server and discussion forum](https://discord.gg/u3MtaAASGu) that you can also join.
