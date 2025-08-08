@@ -6,7 +6,7 @@
 
 **BIM Open Schema** is an open formal specification of BIM data that is designed for modern 
 analytics tools and optimized for columnar data formats like [**Parquet**](https://parquet.apache.org/) and 
-[**DuckDB**](https://duckdb.org/). 
+relational databases like [**DuckDB**](https://duckdb.org/). 
 
 ## 📖 Repo Contents
 
@@ -21,7 +21,8 @@ This repo provides:
 
 ## 🌐 Platform and Language Agnostic 
 
-The schema is optimized for columnar data formats, but it is *not* tied to any one particular serialization format, 
+The schema is optimized for columnar data formats, such as those used
+by relational databases, but it is *not* tied to any one particular serialization format, 
 and can be easily converted to many different formats for fast inspection in your tool of choice. 
 
 This project comes with C# code which acts as the official specification, but the schema is platform independent 
@@ -31,18 +32,18 @@ We welcome code contributions in any language.
 
 ## 🎯Target Workflows
 
-1. **ETL pipe**  :  Revit/IFC -> Parquet/DuckDB -> downstream BI/ML.
-2. **Quick inspection**  :  Open the Parquet/DuckDB database with SQL, PowerBI or Python/Pandas.
+1. **ETL pipe**  :  Revit/IFC -> Parquet -> database/BI/ML.
+2. **Quick inspection**  :  Open the Parquet files with DuckDB, PowerBI, or Pandas.
 3. **Inter‑tool hand‑off**  :  Share a small, self‑contained bundle instead of heavyweight RVT/IFC when geometry is not required.
 
 ## 🧑‍🤝‍🧑Target Users
 
-Data scientists, BI analysts and application developers who need properties, relationships, and additional BIM data without 
+Data scientists, BI analysts, and application developers who need properties, relationships, and additional BIM data without 
 geometry. 
 
 ## 📐 Design Principles
 
-- _Column‑oriented storage_: Each list maps cleanly to a Parquet column chunk or a DuckDB table.
+- _Column‑oriented storage_: Each list maps cleanly to a Parquet column chunk or a database table.
 - _String & point interning_: Repeated values are stored once and referenced by a typed index, keeping files small.
 - _EAV‑flavoured parameters_: A minimal core (Entity, Descriptor) plus type‑specific value tables yields flexibility while preserving strong types.
 - _Relation set_: A single EntityRelation edge list expresses most graph‑like BIM relationships found in Revit or IFC.
@@ -52,15 +53,19 @@ geometry.
 ETL (Extract, Transform, and Load) is a three-phase computing process where data is extracted from an input source, 
 transformed (including cleaning), and loaded into an output data container.
 
+The goal of BIM Open Schema is to standardize the BIM representation of data for extraction and loading using a schema 
+that is efficient, compact, and cross-platform. Better ETL means better data analytics.
+
 ## 📝Serialization Formats (Readers and Writers) 
 
 We provide tools and examples to convert BIM Open Schema to/from:
 
-- [DuckDB](https://duckdb.org/) - A simple, fast, open-source database system optimized for in-process analytical work.
 - [Parquet](https://parquet.apache.org/) - an efficient, open source, column-oriented data file format with wide tooling support.
+- [DuckDB](https://duckdb.org/) - A simple, fast, open-source database system optimized for in-process analytical work.
 - [JSON](https://json.org) - A lightweight and ubiquitous human-readable format for exchanging data over the web.
 
-To extract data from Revit you can use **[Bowerbird](https://github.com/ara3d/bowerbird)** and the command _"Export BIM Open Schema"_: 
+To extract data from Revit you can use our **[Revit Parquet Exporter](https://github.com/ara3d/bim-open-schema/releases)** 
+or **[Bowerbird](https://github.com/ara3d/bowerbird)** and the command _"Export BIM Open Schema"_: 
 
 <img width="1699" height="1002" alt="image" src="https://github.com/user-attachments/assets/a732808c-b18b-47fe-84fd-8886a50bcbd3" />
 
@@ -89,7 +94,8 @@ Some of the people who have contributed are (in alphabetical order):
 * Valentin Noves - e-verse
 * Yskert Schindel - Vyssuals
 
-We have an active [Discord server and discussion forum](https://discord.gg/u3MtaAASGu) that you can also join.
+We have an active Discord server and discussion forum that you can join if you are interested. 
+Just send us an [email request](mailto:info@ara3d.com)
 
 ## 💼 Commercial Support and Services 
 
