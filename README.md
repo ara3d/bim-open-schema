@@ -65,7 +65,10 @@ We provide tools and examples to convert BIM Open Schema to/from:
 - [JSON](https://json.org) - A lightweight and ubiquitous human-readable format for exchanging data over the web.
 
 To extract data from Revit you can use our **[Revit Parquet Exporter](https://github.com/ara3d/bim-open-schema/releases)** 
-or **[Bowerbird](https://github.com/ara3d/bowerbird)** and the command _"Export BIM Open Schema"_: 
+
+<img width="463" height="381" alt="image" src="https://github.com/user-attachments/assets/2ccabd86-02c9-4f57-90da-ca77e5ad4854" />
+
+Or **[Bowerbird](https://github.com/ara3d/bowerbird)** and the command _"Export BIM Open Schema"_: 
 
 <img width="1699" height="1002" alt="image" src="https://github.com/user-attachments/assets/a732808c-b18b-47fe-84fd-8886a50bcbd3" />
 
