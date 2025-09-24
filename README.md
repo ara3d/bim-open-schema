@@ -74,6 +74,9 @@ Or **[Bowerbird](https://github.com/ara3d/bowerbird)** and the command _"Export 
 
 ## 🔗 Related Projects
 
+Tomo Sugeta has developed [BIM Open Reader](https://bim-open-schema-reader.vercel.app/) a browser-based tool for exploring BIM Open Data 
+in the format of Parquet files.  
+
 Some open-source projects which are related:
 
 - [SVF2 to Parquet](https://github.com/wallabyway/vibe-duckdb-svf2-properties)
