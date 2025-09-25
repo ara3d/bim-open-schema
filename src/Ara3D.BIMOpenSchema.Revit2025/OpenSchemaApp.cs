@@ -9,8 +9,6 @@ using System.Windows.Forms;
 using System.Windows.Media.Imaging;
 using Ara3D.BimOpenSchema;
 using Ara3D.BimOpenSchema.IO;
-using Ara3D.Bowerbird.Revit;
-using Ara3D.Bowerbird.RevitSamples;
 using Ara3D.Logging;
 using Ara3D.Utils;
 using Autodesk.Revit.UI;
@@ -48,7 +46,7 @@ namespace Ara3D.BIMOpenSchema.Revit2025
        public Bitmap GetImage()
         {
             var assembly = Assembly.GetExecutingAssembly();
-            using var stream = assembly.GetManifestResourceStream("Ara3D.BIMOpenSchema.Revit2025.bim-open-schema-duck.png");
+            using var stream = assembly.GetManifestResourceStream("Ara3D.BIMOpenSchema.Revit2025.bos32x32.png");
             return new Bitmap(stream);
         }
 
@@ -127,8 +125,7 @@ namespace Ara3D.BIMOpenSchema.Revit2025
             {
                 var timer = Stopwatch.StartNew();
 
-                var useLinks = settings.IncludeLinks;
-                var builder = new RevitToOpenBimSchema(currentDoc, useLinks);
+                var builder = new RevitToOpenBimSchema(currentDoc, settings.IncludeLinks, settings.IncludeGeometry);
 
                 var bimData = builder.bdb.Data;
                 var dataSet = bimData.ToDataSet();

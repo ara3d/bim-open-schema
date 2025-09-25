@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ara3D.BimOpenSchema.Browser
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ara3D.BimOpenSchema.Tests", "Ara3D.BimOpenSchema.Tests\Ara3D.BimOpenSchema.Tests.csproj", "{93ABD688-132C-4572-8E22-73C2FD3ED7DA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ara3D.BIMOpenSchema.Revit2025", "Ara3D.BIMOpenSchema.Revit2025\Ara3D.BIMOpenSchema.Revit2025.csproj", "{8B38498D-8EA6-CAC1-75DE-0A30B68E592C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{93ABD688-132C-4572-8E22-73C2FD3ED7DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93ABD688-132C-4572-8E22-73C2FD3ED7DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93ABD688-132C-4572-8E22-73C2FD3ED7DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B38498D-8EA6-CAC1-75DE-0A30B68E592C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B38498D-8EA6-CAC1-75DE-0A30B68E592C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B38498D-8EA6-CAC1-75DE-0A30B68E592C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B38498D-8EA6-CAC1-75DE-0A30B68E592C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

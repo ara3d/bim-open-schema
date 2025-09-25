@@ -10,6 +10,7 @@ namespace Ara3D.BIMOpenSchema.Revit2025
         {
             public DirectoryPath Folder;
             public bool IncludeLinks;
+            public bool IncludeGeometry;
         }
 
         public void UpdateProgress(int index, int count)

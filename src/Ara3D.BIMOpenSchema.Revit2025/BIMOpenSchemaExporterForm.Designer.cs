@@ -129,11 +129,10 @@
             Controls.Add(chooseFolderButton);
             Controls.Add(label1);
             Controls.Add(exportDirTextBox);
-            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
             Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             MinimumSize = new System.Drawing.Size(350, 218);
             Name = "BIMOpenSchemaExporterForm";
-            Text = "Ara 3D - Parquet Exporter for Revit 2025";
+            Text = "BIM Open Schema - Parquet Exporter for Revit 2025";
             ResumeLayout(false);
             PerformLayout();
         }
