@@ -6,7 +6,7 @@ using Ara3D.DataTable;
 
 namespace Ara3D.BimOpenSchema;
 
-public static class BIMDataExtension
+public static class BimDataExtension
 {
     public static string Get(this BimData self, StringIndex index) => self.Strings[(int)index];
     public static Entity Get(this BimData self, EntityIndex index) => self.Entities[(int)index];

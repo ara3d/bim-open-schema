@@ -37,6 +37,7 @@ public static class ParquetUtils
         writer.CompressionLevel = level;
         writer.CompressionMethod = method;
         using var rg = writer.CreateRowGroup();
+
         foreach (var c in table.Columns)
         {
             var df = dataFields[c.ColumnIndex];
@@ -57,9 +58,8 @@ public static class ParquetUtils
         await using var fs = new FileStream(zipPath, FileMode.Create, FileAccess.Write, FileShare.None);
         using var zip = new ZipArchive(fs, ZipArchiveMode.Create, leaveOpen: false);
 
-        for (var i = 0; i < set.Tables.Count; ++i)
+        foreach (var table in set.Tables)
         {
-            var table = set.Tables[i];
             var entryName = $"{table.Name}.parquet";
             var entry = zip.CreateEntry(entryName, level);
             await using var parquetBuffer = new MemoryStream();
@@ -75,7 +75,7 @@ public static class ParquetUtils
         name ??= filePath.GetFileNameWithoutExtension();
         var reader = await ParquetReader.CreateAsync(filePath);
         var parquetColumns = await reader.ReadEntireRowGroupAsync();
-        var araColumns = parquetColumns.Select((c, i) => new ParquetColumnAdpater(c, i)).ToList();
+        var araColumns = parquetColumns.Select((c, i) => new ParquetColumnAdapter(c, i)).ToList();
         return new ReadOnlyDataTable(name, araColumns);
     }
 
@@ -83,7 +83,7 @@ public static class ParquetUtils
     {
         var reader = await ParquetReader.CreateAsync(stream);
         var parquetColumns = await reader.ReadEntireRowGroupAsync();
-        var araColumns = parquetColumns.Select((c, i) => new ParquetColumnAdpater(c, i)).ToList();
+        var araColumns = parquetColumns.Select((c, i) => new ParquetColumnAdapter(c, i)).ToList();
         return new ReadOnlyDataTable(name, araColumns);
     }
 
@@ -114,11 +114,11 @@ public static class ParquetUtils
         return tables.ToDataSet();
     }
 
-    public class ParquetColumnAdpater : IDataColumn
+    public class ParquetColumnAdapter : IDataColumn
     {
         public DataColumn Column;
 
-        public ParquetColumnAdpater(DataColumn dc, int index)
+        public ParquetColumnAdapter(DataColumn dc, int index)
         {
             Column = dc;
             ColumnIndex = index;
@@ -131,5 +131,76 @@ public static class ParquetUtils
         public int Count { get; }
         public object this[int n] => Column.Data.GetValue(n);
         public Array AsArray() => Column.Data;
+    }
+
+
+    public static void WriteParquetZip(this BimGeometry bg, FilePath file,
+        CompressionMethod method = CompressionMethod.Brotli, CompressionLevel level = CompressionLevel.Optimal)
+        => Task.Run(() => WriteParquetZipAsync(bg, file, method, level)).GetAwaiter().GetResult();
+
+    public static async Task WriteParquetZipAsync(this BimGeometry bg, FilePath file, CompressionMethod method = CompressionMethod.Brotli, CompressionLevel level = CompressionLevel.Optimal)
+    {
+        var builders = bg.ToParquet();
+        await using var fs = new FileStream(file, FileMode.Create, FileAccess.Write, FileShare.None);
+        using var zip = new ZipArchive(fs, ZipArchiveMode.Create, leaveOpen: false);
+        foreach (var builder in builders)
+        {
+            var entryName = $"{builder.Name}.parquet";
+            // Quickly compress data
+            var entry = zip.CreateEntry(entryName, CompressionLevel.Fastest);
+            await using var parquetBuffer = new MemoryStream();
+            await builder.SaveToStream(parquetBuffer, method, level);
+            parquetBuffer.Position = 0;
+            await using var entryStream = entry.Open();
+            await parquetBuffer.CopyToAsync(entryStream);
+        }
+    }
+
+    public static List<ParquetBuilder> ToParquet(this BimGeometry bg)
+    {
+        var r = new List<ParquetBuilder>();
+        {
+            var pb = new ParquetBuilder("Material");
+            pb.Add(bg.MaterialRed, nameof(bg.MaterialRed));
+            pb.Add(bg.MaterialGreen, nameof(bg.MaterialGreen));
+            pb.Add(bg.MaterialBlue, nameof(bg.MaterialBlue));
+            pb.Add(bg.MaterialAlpha, nameof(bg.MaterialAlpha));
+            pb.Add(bg.MaterialMetallic, nameof(bg.MaterialRoughness));
+            pb.Add(bg.MaterialRoughness, nameof(bg.MaterialMetallic));
+            r.Add(pb);
+        }
+        {
+            var pb = new ParquetBuilder("Vertex");
+            pb.Add(bg.VertexXData, nameof(bg.VertexXData));
+            pb.Add(bg.VertexYData, nameof(bg.VertexYData));
+            pb.Add(bg.VertexZData, nameof(bg.VertexZData));
+            r.Add(pb);
+        }
+        {
+            var pb = new ParquetBuilder("Index");
+            pb.Add(bg.IndexData, nameof(bg.IndexData));
+            r.Add(pb);
+        }
+        {
+            var pb = new ParquetBuilder("Element");
+            pb.Add(bg.ElementEntityIndices, nameof(bg.ElementEntityIndices));
+            pb.Add(bg.ElementMaterialIndices, nameof(bg.ElementMaterialIndices));
+            pb.Add(bg.ElementMeshIndices, nameof(bg.ElementMeshIndices));
+            pb.Add(bg.ElementTransformIndices, nameof(bg.ElementTransformIndices));
+            r.Add(pb);
+        }
+        {
+            var pb = new ParquetBuilder("Mesh");
+            pb.Add(bg.MeshIndexOffset, nameof(bg.MeshIndexOffset));
+            pb.Add(bg.MeshVertexOffset, nameof(bg.MeshVertexOffset));
+            r.Add(pb);
+        }
+        {
+            var pb = new ParquetBuilder("Transform");
+            pb.Add(bg.TransformData, nameof(bg.TransformData));
+            r.Add(pb);
+        }
+
+        return r;
     }
 }
