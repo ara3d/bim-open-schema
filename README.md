@@ -8,6 +8,9 @@
 analytics tools and optimized for columnar data formats like [**Parquet**](https://parquet.apache.org/) and 
 relational databases like [**DuckDB**](https://duckdb.org/). 
 
+For a 3D geometric representation compatible with BIM Open Schema see the companion 
+project [**BIM Open Geometry**](https://github.com/ara3d/bim-open-geometry).
+
 ## 📖 Repo Contents
 
 This repo provides:
