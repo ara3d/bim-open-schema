@@ -21,7 +21,6 @@ A schema describes the meaning, relationships, and structure of data. The **BIM 
 
 [**Parquet**](https://parquet.apache.org/) is very efficient to read/write, easy to use, compact, with wide support. It is also self-describing and validating. 
 Unlike with CSV or JSON, a Parquet importer can determine exactly how many rows and columns of data there are and what data types are contained.  
-Parquet is rapidly becoming the standard for data sciene 
 
 ## Repo Contents
 
