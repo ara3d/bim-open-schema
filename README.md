@@ -7,7 +7,7 @@ and to support a wide range of tools off the shelf.
 
 ## Example Use Cases
 
-1. analytics - [**pandas**](https://pandas.pydata.org/), [**Apache Spark**](https://spark.apache.org/), [**BIM Open Schema Reader**](https://bim-open-schema-reader.vercel.app/), [**Power BI**](https://www.microsoft.com/en-us/power-platform/products/power-bi)
+1. analytics - [**pandas**](https://pandas.pydata.org/), [**Power BI**](https://www.microsoft.com/en-us/power-platform/products/power-bi)
 2. databases - [**DuckDB**](https://duckdb.org/), [**BIM Lakehouse**](https://bimlakehouse.com) 
 3. serialization - [**Parquet**](https://parquet.apache.org/)
 4. interactive visualization - [**Ara 3D Studio**](https://github.com/ara3d/ara3d-studio)
@@ -37,6 +37,10 @@ We provide a number of open-source tools and libraries in the [Ara 3D SDK reposi
 - [Browser Tool for Windows (includes Excel and glTF exporter)](https://github.com/ara3d/ara3d-sdk/tree/main/wip/Ara3D.BimOpenSchema.Browser)  
 - [IO Libraries](https://github.com/ara3d/ara3d-sdk/tree/main/wip/Ara3D.BimOpenSchema.IO)
 - Revit 2025 Exporter- Coming soon
+
+Additionally Tomo Sugeta maintains:
+
+- [BIM Open Schema Reader](https://bim-open-schema-reader.vercel.app/)
 
 ## Platform and Language Agnostic 
 
