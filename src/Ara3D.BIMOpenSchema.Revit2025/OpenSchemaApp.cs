@@ -1,17 +1,21 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
-using System.Windows.Media.Imaging;
-using Ara3D.BimOpenSchema;
+﻿using Ara3D.BimOpenSchema;
 using Ara3D.BimOpenSchema.IO;
 using Ara3D.Logging;
 using Ara3D.Utils;
 using Autodesk.Revit.UI;
+using DocumentFormat.OpenXml.Vml.Office;
+using Parquet;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.IO.Compression;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 using Bitmap = System.Drawing.Bitmap;
 using MessageBox = System.Windows.Forms.MessageBox;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
@@ -125,14 +129,33 @@ namespace Ara3D.BIMOpenSchema.Revit2025
             {
                 var timer = Stopwatch.StartNew();
 
-                var builder = new RevitToOpenBimSchema(currentDoc, settings.IncludeLinks, settings.IncludeGeometry);
-
-                var bimData = builder.bdb.Data;
+                var bimDataBuilder = new RevitToOpenBimSchema(currentDoc, settings.IncludeLinks);
+                var bimData = bimDataBuilder.bdb.Data;
                 var dataSet = bimData.ToDataSet();
 
-                var inputFile = new Utils.FilePath(currentDoc.PathName);
+                var inputFile = new FilePath(currentDoc.PathName);
                 var fp = inputFile.ChangeDirectoryAndExt(settings.Folder, ".parquet.zip");
-                Task.Run(() => dataSet.WriteParquetToZipAsync(fp)).GetAwaiter().GetResult();
+
+                var fs = new FileStream(fp, FileMode.Create, FileAccess.Write, FileShare.None);
+                using var zip = new ZipArchive(fs, ZipArchiveMode.Create, leaveOpen: false);
+
+                var parquetCompressionMethod = CompressionMethod.Brotli;
+                var parquetCompressionLevel = CompressionLevel.Optimal;
+                var zipCompressionLevel = CompressionLevel.Fastest;
+
+                Task.Run(() => dataSet.WriteParquetToZipAsync(zip, 
+                    parquetCompressionMethod, 
+                    parquetCompressionLevel,
+                    zipCompressionLevel))
+                    .GetAwaiter().GetResult();
+                
+                if (settings.IncludeGeometry)
+                {
+                    var revitBuilder = new RevitBimGeometryBuilder();
+                    revitBuilder.ProcessDocument(currentDoc, settings.IncludeLinks);
+                    var bimGeometry = revitBuilder.Build();
+                    bimGeometry.WriteParquetZip(zip, parquetCompressionMethod, parquetCompressionLevel, zipCompressionLevel);
+                }
 
                 if (MessageBox.Show($"Completed export process in {timer.Elapsed.TotalSeconds:F1} seconds.\nOpen output folder?", "Congratulations!",
                         MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) == DialogResult.Yes)

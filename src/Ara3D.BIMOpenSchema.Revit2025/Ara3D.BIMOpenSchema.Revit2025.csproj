@@ -10,9 +10,11 @@
 
   <ItemGroup>
     <None Remove="bim-open-schema-duck.png" />
+    <None Remove="BOS-32x32.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="BOS-32x32.ico" />
     <EmbeddedResource Include="bos32x32.png" />
   </ItemGroup>
 
@@ -23,8 +25,8 @@
     <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\bim-open-schema\src\Ara3D.BimOpenSchema.IO\Ara3D.BimOpenSchema.IO.csproj" />
-    <ProjectReference Include="..\..\..\bim-open-schema\src\Ara3D.BimOpenSchema\Ara3D.BimOpenSchema.csproj" />
+    <ProjectReference Include="..\..\..\integrations\bim-open-schema\src\Ara3D.BimOpenSchema.IO\Ara3D.BimOpenSchema.IO.csproj" />
+    <ProjectReference Include="..\..\..\integrations\bim-open-schema\src\Ara3D.BimOpenSchema\Ara3D.BimOpenSchema.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AdWindows">

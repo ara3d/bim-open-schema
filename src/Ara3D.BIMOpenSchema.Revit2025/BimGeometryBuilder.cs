@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Numerics;
 using Ara3D.BimOpenSchema;
 using Ara3D.Models;
@@ -13,9 +15,41 @@ public class Mesh
     public List<float> PointZData = new();
     public List<int> IndexData = new();
 
+    public IEnumerable<int> PointXApprox => PointXData.Select(x => (int)(x * 10000));
+    public IEnumerable<int> PointYApprox => PointYData.Select(x => (int)(x * 10000));
+    public IEnumerable<int> PointZApprox => PointZData.Select(x => (int)(x * 10000));
+
     // Helper functions 
     public int GetNumTriangles() => IndexData.Count / 3;
     public int GetNumPoints() => PointXData.Count / 3;
+
+    /*
+    public override int GetHashCode()
+    {
+        if (GetNumPoints() < 3 || IndexData.Count < 3)
+            return HashCode.Combine(
+                GetNumTriangles(), GetNumPoints());
+
+        return HashCode.Combine(
+            GetNumTriangles(), GetNumPoints(),
+            IndexData[0], IndexData[^1],
+            PointXData[0], PointXData[^1]);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(this, obj)) return true;
+        if (!(obj is Mesh m)) return false;
+        if (GetHashCode() != obj.GetHashCode()) return false;
+        if (m.GetNumTriangles() != GetNumTriangles()) return false;
+        if (m.GetNumPoints() != GetNumPoints()) return false;
+        if (!m.IndexData.SequenceEqual(IndexData)) return false;
+        if (!m.PointXApprox.SequenceEqual(PointXApprox)) return false;
+        if (!m.PointYApprox.SequenceEqual(PointYApprox)) return false;
+        if (!m.PointZApprox.SequenceEqual(PointZApprox)) return false;
+        return true;
+    }
+    */
 }
 
 public class MeshWithMaterial
@@ -32,7 +66,7 @@ public class MeshGroup
 }
 
 public class BimGeometryBuilder
-{
+{               
     public List<ElementStruct> Elements = new();
     public IndexedSet<Mesh> Meshes = new();
     public IndexedSet<Material> Materials = new();

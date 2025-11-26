@@ -9,11 +9,9 @@ namespace Ara3D.BIMOpenSchema.Revit2025;
 
 public class RevitToOpenBimSchema
 {
-    public RevitToOpenBimSchema(Document rootDocument, bool includeLinks, bool includeGeometry) 
+    public RevitToOpenBimSchema(Document rootDocument, bool includeLinks) 
     {
         IncludeLinks = includeLinks;
-        IncludeGeometry = includeGeometry;
-        GeometryOptions = new Options() { DetailLevel = ViewDetailLevel.Fine };
         CreateCommonDescriptors();
         ProcessDocument(rootDocument);
     }
@@ -29,8 +27,6 @@ public class RevitToOpenBimSchema
 
     public BimDataBuilder bdb = new();
     public bool IncludeLinks;
-    public bool IncludeGeometry;
-    public Options GeometryOptions;
     public Document CurrentDocument;
     public DocumentIndex CurrentDocumentIndex;
     public Dictionary<(DocumentIndex, long), EntityIndex> ProcessedEntities = new();
@@ -40,14 +36,14 @@ public class RevitToOpenBimSchema
     public bool TryGetEntity(DocumentIndex di, ElementId id, out EntityIndex index)
         => ProcessedEntities.TryGetValue((di, id.Value), out index);
 
-    public static (Autodesk.Revit.DB.XYZ min, Autodesk.Revit.DB.XYZ max)? GetBoundingBoxMinMax(Element element, View view = null)
+    public static (XYZ min, XYZ max)? GetBoundingBoxMinMax(Element element, View view = null)
     {
         if (element == null) return null;
         var bb = element.get_BoundingBox(view);
         return bb == null ? null : (bb.Min, bb.Max);
     }
 
-    public PointIndex AddPoint(BimDataBuilder bdb, Autodesk.Revit.DB.XYZ xyz)
+    public PointIndex AddPoint(BimDataBuilder bdb, XYZ xyz)
         => bdb.AddPoint(new(xyz.X, xyz.Y, xyz.Z));
 
     private DescriptorIndex _apiTypeDescriptor;
@@ -504,8 +500,8 @@ public class RevitToOpenBimSchema
 
     public static bool TryGetLocationEndpoints(
         LocationCurve lc,
-        out Autodesk.Revit.DB.XYZ startPoint,
-        out Autodesk.Revit.DB.XYZ endPoint)
+        out XYZ startPoint,
+        out XYZ endPoint)
     {
         startPoint = null;
         endPoint = null;
@@ -516,15 +512,7 @@ public class RevitToOpenBimSchema
         endPoint = curve.GetEndPoint(1);
         return true;
     }
-
-    public void ProcessGeometry(Element e)
-    {
-        if (!IncludeGeometry)
-            return;
-        var g = e.get_Geometry(GeometryOptions);
-        
-    }
-
+    
     public EntityIndex ProcessElement(Element e)
     {
         if (e == null || !e.IsValidObject)
@@ -639,8 +627,6 @@ public class RevitToOpenBimSchema
 
         if (e is FamilyInstance familyInstance)
             ProcessFamilyInstance(entityIndex, familyInstance);
-
-        ProcessGeometry(e);
 
         return entityIndex;
     }

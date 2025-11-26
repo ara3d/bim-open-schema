@@ -94,17 +94,15 @@ namespace Ara3D.BIMOpenSchema.Revit2025
         }
 
         public ExportSettings GetExportSettings()
-        {
-            var settings = new ExportSettings
+            => new()
             {
                 Folder = GetCurrentExportFolder(),
                 IncludeLinks = checkBoxIncludeLinks.Checked,
+                IncludeGeometry = checkBoxMeshGeometry.Checked
             };
-            return settings;
-        }
 
         public DirectoryPath CurrentDocumentDir
-            => new Utils.FilePath(CurrentDocument.PathName).GetDirectory();
+            => new FilePath(CurrentDocument.PathName).GetDirectory();
 
         public DirectoryPath GetCurrentExportFolder()
         {
