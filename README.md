@@ -10,8 +10,8 @@ and supported by a wide range of tools off the shelf.
 
 This repo provides:
 
-1. Official specification [in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/spec).
-2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/data/examples) generated from the Autodesk Revit 2025 Snowdon sample
+1. [Official specification](https://github.com/ara3d/bim-open-schema/blob/main/spec) - in the form of valid C# code.
+2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/examples) - generated from the Autodesk Revit 2025 Snowdon sample
 3. [BIM Open Schema Exporter for Revit 2025](https://github.com/ara3d/bim-open-schema/releases)
    
 ## About Parquet
