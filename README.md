@@ -1,9 +1,21 @@
 # BIM Open Schema 
 
-**BIM Open Schema** is an open formal specification of BIM data, including 3D geometry, that is optimized and designed for real-world large-scale data and modern tools and pipelines:
+**BIM Open Schema** is an open formal specification of BIM data, including 3D geometry, that is optimized and designed for real-world large-scale 
+data and modern tools and pipelines.
 
 When used with Parquet, BIM Open Schema allows you to efficiently represent extremely large BIM projects, with a very small footprint
-and to support a wide range of tools off the shelf. 
+and supported by a wide range of tools off the shelf. 
+
+## About Parquet
+
+[**Parquet**](https://parquet.apache.org/) is a very compact, efficient, and widely supported binary format for tabular data.  
+It is self-describing and validating. Unlike with CSV or JSON, a Parquet importer can determine exactly how many rows and columns of data 
+there are and what data types are contained within. 
+
+## The .bos File Extension
+
+BIM Open Schema files have the extension `.bos` and are zip archives containing several `.parquet` files. 
+You can rename the extension to a `.zip` and open the archive with Windows explorer and other common tools.
 
 ## Example Use Cases
 
@@ -12,15 +24,14 @@ and to support a wide range of tools off the shelf.
 3. serialization - [**Parquet**](https://parquet.apache.org/)
 4. interactive visualization - [**Ara 3D Studio**](https://github.com/ara3d/ara3d-studio)
 
+## Demo Video
+
+https://github.com/user-attachments/assets/fe591704-08a7-451a-a257-adae73ad4c9d
+
 ## What is a Schema? 
 
 A schema describes the meaning, relationships, and structure of data. The **BIM Open Schema** project is agnostic of the specific serialization format
 (e.g. you could use JSON or FlatBuffer), but it is optimized for structured self-describing columnar binary data formats, particularly **Parquet**.  
-
-## Why do we Recommend Parquet?
-
-[**Parquet**](https://parquet.apache.org/) is very efficient to read/write, easy to use, compact, with wide support. It is also self-describing and validating. 
-Unlike with CSV or JSON, a Parquet importer can determine exactly how many rows and columns of data there are and what data types are contained.  
 
 ## Repo Contents
 
@@ -29,14 +40,14 @@ This repo provides:
 1. Official specification [in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/spec).
 2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/data/examples) generated from the Autodesk Revit 2025 Snowdon sample  
 
-## Open-Source Samples and Tools
+## Open-Source Sample Code and Tools
 
 We provide a number of open-source tools and libraries in the [Ara 3D SDK repository](https://github.com/ara3d/ara3d-sdk):
 
 - [Core Library](https://github.com/ara3d/ara3d-sdk/tree/main/src/Ara3D.BimOpenSchema)
-- [Browser Tool for Windows (includes Excel and glTF exporter)](https://github.com/ara3d/ara3d-sdk/tree/main/wip/Ara3D.BimOpenSchema.Browser)  
-- [IO Libraries](https://github.com/ara3d/ara3d-sdk/tree/main/wip/Ara3D.BimOpenSchema.IO)
-- Revit 2025 Exporter- Coming soon
+- [Browser Tool for Windows (includes Excel and glTF exporter)](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.Browser)  
+- [IO Libraries](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.IO)
+- [Revit 2025 Exporter](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.Revit2025)
 
 Additionally Tomo Sugeta maintains:
 
@@ -52,6 +63,28 @@ This project comes with C# code which acts as the official specification, but th
 and language agnostic. 
 
 We welcome code contributions in any language. 
+
+## Appendix: Parquet Files
+
+The contents of the .bos archive are the following parquet files: 
+
+- **Non Geometry Data**
+  - Entities.parquet
+  - Descriptors.parquet
+  - Documents.parquet
+  - Points.parquet
+  - Strings.parquet
+  - DoubleParameters.parquet
+  - IntegerParameter.parquet
+  - PointParameters.parquet
+  - StringParameters.parquet
+- **Geometry Data** 
+  - Elements.parquet
+  - Transforms.parquet
+  - VertexBuffer.parquet
+  - IndexBuffer.parquet
+  - Materials.parquet
+  - Meshes.parquet
 
 ## Contributors and Supporters
 
