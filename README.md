@@ -6,6 +6,14 @@ data and modern tools and pipelines.
 When used with Parquet, BIM Open Schema allows you to efficiently represent extremely large BIM projects, with a very small footprint
 and supported by a wide range of tools off the shelf. 
 
+## Repo Contents
+
+This repo provides:
+
+1. Official specification [in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/spec).
+2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/data/examples) generated from the Autodesk Revit 2025 Snowdon sample
+3. [BIM Open Schema Exporter for Revit 2025](https://github.com/ara3d/bim-open-schema/releases)
+   
 ## About Parquet
 
 [**Parquet**](https://parquet.apache.org/) is a very compact, efficient, and widely supported binary format for tabular data.  
@@ -32,13 +40,6 @@ https://github.com/user-attachments/assets/fe591704-08a7-451a-a257-adae73ad4c9d
 
 A schema describes the meaning, relationships, and structure of data. The **BIM Open Schema** project is agnostic of the specific serialization format
 (e.g. you could use JSON or FlatBuffer), but it is optimized for structured self-describing columnar binary data formats, particularly **Parquet**.  
-
-## Repo Contents
-
-This repo provides:
-
-1. Official specification [in the form of valid C# code](https://github.com/ara3d/bim-open-schema/blob/main/spec).
-2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/data/examples) generated from the Autodesk Revit 2025 Snowdon sample  
 
 ## Open-Source Sample Code and Tools
 
