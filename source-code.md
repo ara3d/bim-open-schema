@@ -1,6 +1,8 @@
 # Contributing to and Understanding the Code
 
-This repository only contains a specification document, and sample file. Our core tools and libraries are maintained in the [Ara 3D SDK repository](https://github.com/ara3d/ara3d-sdk):
+This repository contains the specification documents, and sample file. 
+
+Most of our open-source tools and libraries are maintained in the [Ara 3D SDK repository](https://github.com/ara3d/ara3d-sdk).
 
 ## Code Organization  
 
