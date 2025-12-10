@@ -41,19 +41,6 @@ https://github.com/user-attachments/assets/fe591704-08a7-451a-a257-adae73ad4c9d
 A schema describes the meaning, relationships, and structure of data. The **BIM Open Schema** project is agnostic of the specific serialization format
 (e.g. you could use JSON or FlatBuffer), but it is optimized for structured self-describing columnar binary data formats, particularly **Parquet**.  
 
-## Open-Source Sample Code and Tools
-
-We provide a number of open-source tools and libraries in the [Ara 3D SDK repository](https://github.com/ara3d/ara3d-sdk):
-
-- [Core Library](https://github.com/ara3d/ara3d-sdk/tree/main/src/Ara3D.BimOpenSchema)
-- [Browser Tool for Windows (includes Excel and glTF exporter)](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.Browser)  
-- [IO Libraries](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.IO)
-- [Revit 2025 Exporter](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.Revit2025)
-
-Additionally Tomo Sugeta maintains:
-
-- [BIM Open Schema Reader](https://bim-open-schema-reader.vercel.app/)
-
 ## Platform and Language Agnostic 
 
 The schema is optimized for serialization to/from columnar and tabular data formats, such as those used by relational databases, 
@@ -65,7 +52,7 @@ and language agnostic.
 
 We welcome code contributions in any language. 
 
-## Appendix: Parquet Files
+## Parquet Files contained in the BOS Archive
 
 The contents of the .bos archive are the following parquet files: 
 
@@ -86,6 +73,12 @@ The contents of the .bos archive are the following parquet files:
   - IndexBuffer.parquet
   - Materials.parquet
   - Meshes.parquet
+
+## Show me the Code
+
+The bulk of the source code for this project, is actively maintained in a separate repository.  
+
+See [this document](contributing.md) to find where the code is, and learn how it is structured, and how to find it. 
 
 ## Contributors and Supporters
 
