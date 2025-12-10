@@ -78,7 +78,7 @@ The contents of the .bos archive are the following parquet files:
 
 The bulk of the source code for this project, is actively maintained in a separate repository.  
 
-See [this document](contributing.md) to find where the code is, and learn how it is structured, and how to find it. 
+See [source-code.md](source-code.md) to find where the code is, learn how it is structured, and how to contribute to it. 
 
 ## Contributors and Supporters
 
