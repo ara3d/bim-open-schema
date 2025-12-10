@@ -1,4 +1,4 @@
-# Contributing to and Understanding the Open Source Code
+# Contributing to and Understanding the Code
 
 This repository only contains a specification document, and sample file. Our core tools and libraries are maintained in the [Ara 3D SDK repository](https://github.com/ara3d/ara3d-sdk):
 
@@ -33,7 +33,7 @@ Which are mirrored in this repository:
 
 In the case of a discrepancy, please let us know via issues, but the former shall take precedence over the latter.  
 
-## Revit Exporter 
+## Revit 2025 Exporter 
 
 The code for the Revit exporter can be found at: 
 
@@ -66,3 +66,9 @@ There are several additional projects which are used together to facilitate the 
 - [Ara3D.Geometry](https://github.com/ara3d/ara3d-sdk/blob/main/src/Ara3D.Geometry) - A library of geometry and math routines 
 - [Ara3D.Extra](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Extras) - A grab-bag of external dependencies, in this case used for Parquet loading, writing, and parsing
 - [Ara3D.BimOpenSchema.IO](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.BimOpenSchema.IO) - Additional libraries for reading/writing and transforming BIM OpenSchema (e.g., to Excel)
+
+# Contributions
+
+Contribution are welcome, if they conform to the style and design philosophy established by the pre-existing code. 
+Most contributions would be made to the [Ara 3D SDK repository](https://github.com/ara3d/ara3d-sdk). 
+If you have questions or suggestions feel free to [submit an issue](https://github.com/ara3d/bim-open-schema/issues).
