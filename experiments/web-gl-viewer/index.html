@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BIM Open Schema – WebGL Viewer</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100%;
+      background: #111;
+      color: #eee;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    #dropOverlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 3px dashed #555;
+      background: rgba(0,0,0,0.7);
+      color: #eee;
+      font-size: 1.2rem;
+      z-index: 10;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    #dropOverlay.visible {
+      pointer-events: auto;
+      opacity: 1;
+    }
+    #canvasContainer {
+      position: absolute;
+      inset: 0;
+    }
+    #statusBar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 4px 8px;
+      background: rgba(0,0,0,0.5);
+      font-size: 12px;
+      color: #ccc;
+      z-index: 20;
+    }
+    #fileInput {
+      display: none;
+    }
+    #toolbar {
+      position: fixed;
+      top: 8px;
+      left: 8px;
+      z-index: 15;
+      display: flex;
+      gap: 8px;
+    }
+    .btn {
+      padding: 4px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      border: 1px solid #555;
+      background: rgba(0,0,0,0.6);
+      color: #eee;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: rgba(255,255,255,0.08);
+    }
+  </style>
+</head>
+<body>
+  <div id="canvasContainer"></div>
+
+  <div id="toolbar">
+    <button class="btn" id="openButton">Open BIM ZIP…</button>
+  </div>
+
+  <div id="dropOverlay">Drop BIM Open Schema ZIP file here…</div>
+  <div id="statusBar">Drop a BIM Open Schema ZIP file (Parquet tables) to view.</div>
+
+  <input type="file" id="fileInput" accept=".zip" />
+
+  <!-- JSZip for ZIP handling (global JSZip) -->
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+  <!-- Main module -->
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
