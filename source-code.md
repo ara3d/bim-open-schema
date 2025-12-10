@@ -6,7 +6,7 @@ Most of our open-source tools and libraries are maintained in the [Ara 3D SDK re
 
 ## Code Organization  
 
-The Ara 3D SDK is a mono-repository for all of the open-source C# and Plato development done at Ara 3D. 
+The [Ara 3D SDK](https://github.com/ara3d/ara3d-sdk) is a mono-repository for all of the open-source C# and Plato development done at [Ara 3D](https://ara3d.com). 
 
 Source code is split into two main areas:
 
@@ -45,7 +45,7 @@ It has a dependency on a library called:
 
 - [Ara3D.Bowerbird.Revit.Samples](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.Bowerbird.RevitSamples)
 
-This way it can be used from the Bowerbird plug-in as a script or from the Browser plug-in.   
+This way it can be used from the [Bowerbird Revit plug-in](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.Bowerbird.Revit2025) as a script or from the Browser plug-in.   
 
 Two files in particular do the bulk of the work:
 
