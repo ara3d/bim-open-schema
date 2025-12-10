@@ -50,9 +50,19 @@ Two files in particular do the bulk of the work:
 - [BimOpenSchemaRevitBuilder.cs](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Bowerbird.RevitSamples/BimOpenSchemaRevitBuilder.cs)
 - [MeshGatherer.cs](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Bowerbird.RevitSamples/MeshGatherer.cs)
 
+## BIM Open Schema Browser 
+
+The BIM Open Schema Browser is a WPF application for Windows that present BOS data in a grid view. It provides various options for grouping the data, and 
+to export the data as GLB or Excel files.
+
+The source code can be found at: https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.Browser.
+
 ## Dependencies and Helpers 
 
-There are several additional projects which are used together to enable the workflows:
+There are several additional projects which are used together to facilitate the workflows:
 
-
-https://github.com/ara3d/bim-open-schema/blob/main/spec/BimOpenSchema.cs
+- [Ara3D.DataTable](https://github.com/ara3d/ara3d-sdk/blob/main/src/Ara3D.DataTable) - A high-performance alternative to System.Data, for working with in memory tabular data.  
+- [Ara3D.Models](https://github.com/ara3d/ara3d-sdk/blob/main/src/Ara3D.Models) - A library for representing collections of instanced meshes. 
+- [Ara3D.Geometry](https://github.com/ara3d/ara3d-sdk/blob/main/src/Ara3D.Geometry) - A library of geometry and math routines 
+- [Ara3D.Extra](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Extras) - A grab-bag of external dependencies, in this case used for Parquet loading, writing, and parsing
+- [Ara3D.BimOpenSchema.IO](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.BimOpenSchema.IO) - Additional libraries for reading/writing and transforming BIM OpenSchema (e.g., to Excel)
