@@ -69,6 +69,70 @@ There are several additional projects which are used together to facilitate the 
 - [Ara3D.Extra](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Extras) - A grab-bag of external dependencies, in this case used for Parquet loading, writing, and parsing
 - [Ara3D.BimOpenSchema.IO](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.BimOpenSchema.IO) - Additional libraries for reading/writing and transforming BIM OpenSchema (e.g., to Excel)
 
+
+# Coding FAQ
+
+The following are some common programming tasks and questions. 
+
+## Where is the "Load" or "Read" Function for a .BOS file?  
+
+The main function is called `ReadBimDataFromParquetZipAsync` and can be found in [`ext/Ara3D.Extras/ParquetUtils.cs`](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Extras/ParquetUtils.cs). 
+
+An example of the usage can be found in [`ext/Ara3D.Bowerbird.RevitSamples/CommandForegroundExportBos.cs`](https://github.com/ara3d/ara3d-sdk/blob/main/src/ext/Ara3D.BimOpenSchema.Browser/MainWindow.xaml.cs): 
+
+```
+public async Task OpenFile(FilePath fp)
+{
+    if (!fp.Exists())
+        return;
+    using var waitContext = new WpfWaitContext();
+
+    Model3D = null;
+    CurrentFile = fp;
+    Data = await fp.ReadBimDataFromParquetZipAsync().ConfigureAwait(false);
+    Model3D = BimModel3D.Create(Data);
+    await UpdateTables();
+}
+```
+
+## Where is the "Save" or "Write" Function for a .BOS file?  
+
+The main function is called `ExportBimOpenSchema` and can be found in [`ext/Ara3D.Bowerbird.RevitSamples/BimOpenSchemaUtils.cs`](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Bowerbird.RevitSamples/BimOpenSchemaUtils.cs#L71):
+
+An example of the usage can be found in [`ext/Ara3D.Bowerbird.RevitSamples/CommandForegroundExportBos.cs`](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Bowerbird.RevitSamples/CommandForegroundExportBos.cs): 
+
+```
+public class CommandForegroundExportBos : NamedCommand
+{
+    public override string Name => "BOM Export";
+
+    public BimOpenSchemaExportSettings GetExportSettings()
+        => new()
+        {
+            Folder = BimOpenSchemaExportSettings.DefaultFolder,
+            IncludeLinks = true,
+            IncludeGeometry = true
+        };
+
+    public override void Execute(object arg)
+    {
+        var uiapp = arg as UIApplication;
+        var doc = uiapp?.ActiveUIDocument?.Document;
+        var sb = new StringBuilder();
+        var logger = Logger.Create(sb);
+        doc?.ExportBimOpenSchema(GetExportSettings(), logger);
+        TextDisplayForm.DisplayText(sb.ToString());
+    }
+}
+```
+
+## How do I add a new parameter to export from Revit? 
+
+Follow the pattern of the Revit parameter list in [`src/Ara3D.BimOpenSchema/CommonRevitParameters.cs`](https://github.com/ara3d/ara3d-sdk/blob/main/src/Ara3D.BimOpenSchema/CommonRevitParameters.cs) to add a new parameter name and type definition.
+
+Depending on the type of the data it resides in, find the appropriate location in the file [`ext/Ara3D.Bowerbird.RevitSamples/BimOpenSchemaRevitBuilder.cs`](https://github.com/ara3d/ara3d-sdk/blob/main/ext/Ara3D.Bowerbird.RevitSamples/BimOpenSchemaRevitBuilder.cs) file
+to compute the data and add it. If the data can throw an exception, make sure you apply the appropriate checks or `try`/`catch` block. 
+
 # Contributions
 
 Contribution are welcome, if they conform to the style and design philosophy established by the pre-existing code. 
