@@ -1,246 +1,229 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Ara3D.Models;
 
-namespace Ara3D.BimOpenSchema;
-
-/// <summary>
-/// Contains all the BIM Data for a discipline or federated model.
-/// 
-/// Optimized for efficient loading into analytical tools as a set of Parquet files, or a DuckDB database.
-/// Provides a simple and efficient standardized way to interact with BIM data from different tools,
-/// without having to go through APIs, or ad-hoc representations.
-///
-/// It is optimized for space and load-times, not ease of queries.
-/// A typical workflow would be to ingest this into a DuckDB database then to use SQL to
-/// create denormalized (wide) tables depending on an end-user's specific use-case
-/// and what data they are interested in.  
-/// 
-/// This expresses the schema as an object model that is
-/// independent of any specific serialization format,
-/// whether it is JSON, Parquet, CSV, SQLite, or something else.
-///
-/// When exporting to a database, each list corresponds to a table.
-/// When exporting to parquet, each list corresponds to a parquet file.
-///
-/// This data structure can also be used directly in C# code as am efficient
-/// in-memory data structure for code-based workflows.
-/// </summary>
-public class BimData
+namespace Ara3D.BimOpenSchema
 {
-    public List<ParameterDescriptor> Descriptors { get; set; } = [];
-    public List<ParameterInt> IntegerParameters { get; set; } = [];
-    public List<ParameterDouble> DoubleParameters { get; set; } = [];
-    public List<ParameterString> StringParameters { get; set; } = [];
-    public List<ParameterEntity> EntityParameters { get; set; } = [];
-    public List<ParameterPoint> PointParameters { get; set; } = [];
-    public List<Document> Documents { get; set; } = [];
-    public List<Entity> Entities { get; set; } = [];
-    public List<string> Strings { get; set; } = [];
-    public List<Point> Points { get; set; } = [];
-    public List<EntityRelation> Relations { get; set; } = [];
-    public BimGeometry Geometry { get; set; }
-}
+    /// <summary>
+    /// The object model is a convenient and denormalized representation of the data as objects.
+    /// It is not canonical and is designed for common programming tasks. 
+    /// </summary>
+    public class BimObjectModel
+    {
+        public BimData Data;
 
-//==
-// Enumerations used for indexing tables. Provides type-safety and convenience in code
-//
-// The choice of long provides future proofing. 
+        public List<DocumentModel> Documents { get; } = new();
+        public List<EntityModel> Entities { get; } = new();
+        public List<DescriptorModel> Descriptors { get; } = new();
 
-public enum EntityIndex : long { }
-public enum PointIndex : long { }
-public enum DocumentIndex : long { }
-public enum DescriptorIndex : long { }
-public enum StringIndex : long { }
-public enum RelationIndex : long { }
+        public BimObjectModel(BimData data)
+        {
+            Data = data;
 
-//==
-// Main data type 
+            foreach (var d in data.Documents)
+                Documents.Add(new DocumentModel
+                {
+                    Path = Get(d.Path),
+                    Title = Get(d.Title)
+                });
 
-/// <summary>
-/// Corresponds roughly to an element in the Revit file.
-/// Some items are associated with entities that are not expressly derived from Element (e.g., Document, 
-/// </summary>
-public record Entity
-(
-    // ElementID in Revit, and Step Line # in IFC
-    // Will be unique when combined with a DocumentIndex (e.g., "${LocalId}-{Document}" would be a unique string identifier within the database). 
-    // But multiple documents can share the same entity  
-    long LocalId,
+            Entities = data.
+                EntityIndices().Select(Create).ToList();
+            
+            Descriptors = data.
+                DescriptorIndices().Select(di => Create(di, data.Get(di))).ToList();
 
-    // UniqueID in Revit, and GlobalID in IFC (not stored in string table, because it is never duplicated)
-    string GlobalId, 
+            foreach (var p in data.DoubleParameters)
+                AddParameter(p.Entity, Create(p));
 
-    // The index of the document this entity is part of 
-    DocumentIndex Document,
+            foreach (var p in data.IntegerParameters)
+                AddParameter(p.Entity, Create(p));
 
-    // The name of the entity 
-    StringIndex Name,
+            foreach (var p in data.StringParameters)
+                AddParameter(p.Entity, Create(p));
 
-    // The category of the entity
-    StringIndex Category
-);
+            foreach (var p in data.PointParameters)
+                AddParameter(p.Entity, Create(p));
 
-/// <summary>
-/// Corresponds with a specific Revit or IFC file 
-/// </summary>
-public record Document
-(
-    StringIndex Title,
-    StringIndex Path
-);
+            foreach (var p in data.EntityParameters)
+                AddParameter(p.Entity, Create(p));
 
-/// <summary>
-/// Represents 3D location data.
-/// </summary>
-public record Point
-(
-    double X,
-    double Y,
-    double Z
-);
+            foreach (var r in data.Relations)
+            {
+                var source = Get(r.EntityA);
+                var target = Get(r.EntityB);
+                source.OutgoingRelations.Add(new RelationModel(r.RelationType, target));
+                target.IncomingRelations.Add(new RelationModel(r.RelationType, source));
+            }
 
-/// <summary>
-/// Important for grouping the different kinds of parameter data ...
-/// otherwise we can have two parameter with the same name, but different underlying parameter types.
-/// </summary>
-public enum ParameterType
-{
-    Int, 
-    Double,
-    Entity,
-    String,
-    Point,
-}
+            // For each element, add the corresponding instance struct to the entity.
+            if (Entities.Count > 0)
+            {
+                var numElements = data.Geometry.GetNumElements();
+                for (var i = 0; i < numElements; i++)
+                {
+                    var inst = data.Geometry.GetInstanceStruct(i);
+                    var entityIndex = inst.EntityIndex;
+                    if (entityIndex >= 0)
+                    {
+                        var em = Entities[entityIndex];
+                        em.Instances.Add(inst);
+                    }
+                }
+            }
+        }
 
-/// <summary>
-/// Meta-information for understanding a parameter 
-/// </summary>
-public record ParameterDescriptor
-(
-    StringIndex Name,
-    StringIndex Units,
-    StringIndex Group,
-    ParameterType Type
-);
+        public EntityModel Create(EntityIndex ei)
+            => new(this, ei);
 
-//==
-// Parameter data 
-//
-// All parameter data is arranged in one of a set of EAV (Entity Attribute Value) tables.
-// Each one designed for a specific type. 
+        public DescriptorModel Create(DescriptorIndex index, ParameterDescriptor desc) => new DescriptorModel
+        {
+            Index = index,
+            Name = Data.Get(desc.Name),
+            Units = Data.Get(desc.Units),
+            Group = Data.Get(desc.Group),
+            ParameterType = desc.Type
+        };
 
-/// <summary>
-/// A 32-bit integer parameter value
-/// </summary>
-public record ParameterInt
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    int Value
-);
+        public EntityModel Get(EntityIndex ei) => Entities[(int)ei];
+        public DescriptorModel Get(DescriptorIndex di) => Descriptors[(int)di];
+        public Point Get(PointIndex pi) => Data.Get(pi);
+        public string Get(StringIndex si) => Data.Get(si);
 
-/// <summary>
-/// A parameter value representing text
-/// </summary>
-public record ParameterString
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    StringIndex Value
-);
+        public void AddParameter(EntityIndex ei, ParameterModel pm)
+        {
+            var e = Get(ei);
+            e.ParameterValues[pm.Descriptor.Name] = pm.Value;
+            e.Parameters.Add(pm);
+        }
 
-/// <summary>
-/// A 64-bit precision floating point (decimal) numeric parameter value
-/// </summary>
-public record ParameterDouble
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    double Value
-);
+        public ParameterModel Create(ParameterDouble p) => new(p.Value, Get(p.Descriptor));
+        public ParameterModel Create(ParameterInt p) => new(p.Value, Get(p.Descriptor));
+        public ParameterModel Create(ParameterString p) => new(Get(p.Value), Get(p.Descriptor));
+        public ParameterModel Create(ParameterEntity p) => new(Get(p.Value), Get(p.Descriptor));
+        public ParameterModel Create(ParameterPoint p) => new(Get(p.Value), Get(p.Descriptor));
+    }
 
-/// <summary>
-/// A parameter value which references another entity 
-/// </summary>
-public record ParameterEntity
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    EntityIndex Value
-);
+    public class EntityModel
+    {
+        // Stored data
+        public BimObjectModel Model { get;  }
+        public EntityIndex Index { get; }
+        public List<InstanceStruct> Instances { get; } = new();
 
-/// <summary>
-/// A 32-bit integer parameter value
-/// </summary>
-public record ParameterPoint
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    PointIndex Value
-);
+        // Always accessible data 
+        public BimData Data => Model.Data;
+        public Entity Entity => Model.Data.Get(Index);
+        public DocumentModel Document => Model.Documents[(int)Entity.Document];
+        public string DocumentTitle => Document.Title;
+        public long LocalId => Entity.LocalId;
+        public string GlobalId => Entity.GlobalId;
+        public string Category => Data.Get(Entity.Category);
+        public string Name => Data.Get(Entity.Name);
+        public bool HasGeometry => Instances.Count > 0;
+        
+        // Commonly present data stored in parameters
+        public string CategoryType => GetParameterAsEntity(CommonRevitParameters.ObjectCategory)?.GetParameterAsString(CommonRevitParameters.CategoryBuiltInType);
+        public string ClassName => GetParameterAsString(CommonRevitParameters.ObjectTypeName);
+        public string LevelName => GetParameterAsEntity(CommonRevitParameters.ElementLevel)?.Name;
+        public string GroupName => GetParameterAsEntity(CommonRevitParameters.ElementGroup)?.Name;
+        public string AssemblyName => GetParameterAsEntity(CommonRevitParameters.ElementAssemblyInstance)?.Index.ToString();
+        public int WorksetId => GetParameterAsInt(CommonRevitParameters.ElementWorksetId);
+        public double Elevation => GetParameterAsEntity(CommonRevitParameters.ElementLevel)?.GetParameterAsNumber(CommonRevitParameters.LevelElevation) ?? 0;
+ 
+        // Family instance parameters
+        public string FamilyType => GetParameterAsEntity(CommonRevitParameters.FIFamilyType)?.Name;
+        public string RoomName => GetParameterAsEntity(CommonRevitParameters.FISpace)?.Name;
 
-//==
-// Relations data
+        public EntityModel(BimObjectModel model, EntityIndex ei)
+        {
+            Model = model;
+            Index = ei;
+        }
 
-/// <summary>
-/// Expresses different kinds of relationships between entities 
-/// </summary>
-public record EntityRelation
-(
-    EntityIndex EntityA,
-    EntityIndex EntityB,
-    RelationType RelationType
-);
+        public Dictionary<string, object> ParameterValues { get; } = new();
+        public List<RelationModel> OutgoingRelations { get; } = new();
+        public List<RelationModel> IncomingRelations { get; } = new();
+        public List<ParameterModel> Parameters { get; } = new();
 
-/// <summary>
-/// The various kinds of relations, aimed at covering both the Revit API and IFC
-/// </summary>
-public enum RelationType
-{
-    // For parts of a whole. Represents composition.
-    PartOf = 0,
+        public override string ToString()
+            => $"{Name}(#{LocalId})";
 
-    // For elements of a group or set or layer. Represents aggregations. 
-    MemberOf = 1,
+        public int GetParameterAsInt(string name)
+            => (int)ParameterValues.GetValueOrDefault(name, -1);
 
-    // Represents spatial relationships. Like part of a level, or a room.  
-    ContainedIn = 2,
+        public string GetParameterAsString(string name)
+            => ParameterValues.GetValueOrDefault(name) as string;
 
-    // Used to express family instance to family type relationship  
-    InstanceOf = 3,
+        public double GetParameterAsNumber(string name)
+            => (double)ParameterValues.GetValueOrDefault(name);
 
-    // For parts or openings that occur within a host (such as windows or doorways). 
-    HostedBy = 4,
+        public EntityModel GetParameterAsEntity(string name)
+            => ParameterValues.GetValueOrDefault(name) as EntityModel;
+    }
 
-    // For parent-child relationships in a graph (e.g. sub-categories)
-    ChildOf = 5,
+    public class RelationModel
+    {
+        public RelationType RelationType { get; init; }
+        public EntityModel Target { get; init; }
 
-    // Represents relationship of compound structures and their constituents 
-    HasLayer = 6,
+        public RelationModel(RelationType type, EntityModel target)
+        {
+            RelationType = type;
+            Target = target;
+        }
+    }
 
-    // Represents different kinds of material relationships
-    HasMaterial = 7,
+    public class ParameterModel
+    {
+        public object Value { get; }
+        public DescriptorModel Descriptor { get; }
 
-    // Two-way connectivity relationship. Can assume that only one direction is stored in DB 
-    ConnectsTo = 8,
+        public ParameterModel(object value, DescriptorModel descriptor)
+        {
+            Value = value;
+            Descriptor = descriptor;
+        }
 
-    // MEP networks and connection manager
-    HasConnector = 9,
-    
-    // For space <-> boundary relationships. 
-    BoundedBy = 10,
+        public override string ToString()
+            => $"{Descriptor.Name} ({Descriptor.ParameterType}) = {Value}";
+    }
 
-    // Can traverse from one space to another (e.g., portal)
-    TraverseTo = 11, 
+    public class DocumentModel
+    {
+        public string Path { get; init; }
+        public string Title { get; init; }
+    }
 
-    // Relationship between openings (e.g., doorways, window frame) and hosts  
-    Voids = 12,
+    public class DescriptorModel
+    {
+        public DescriptorIndex Index { get; init; }
+        public string Name { get; init; }
+        public string Units { get; init; }
+        public string Group { get; init; }
+        public ParameterType ParameterType { get; init; }
 
-    // When an object like a door or window fills a void 
-    Fills = 13,
-
-    // For finishes on walls/floors/ceilings
-    Covers = 14,
-
-    // For MEP systems (e.g., HVAC) providing service to a zone
-    Serves = 15,
+        public Type DotNetType
+        {
+            get
+            {
+                switch (ParameterType)
+                {
+                    case ParameterType.Int:
+                        return typeof(int);
+                    case ParameterType.Double:
+                        return typeof(double);
+                    case ParameterType.Entity:
+                        return typeof(int);
+                    case ParameterType.String:
+                        return typeof(string);
+                    case ParameterType.Point:
+                        return typeof(Point);
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+    }
 }

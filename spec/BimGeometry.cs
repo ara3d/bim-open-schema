@@ -16,12 +16,12 @@
 /// </summary>
 public class BimGeometry
 {
-    public const string ElementTableName = "Element";
-    public const string IndexTableName = "Index";
-    public const string MaterialTableName = "Material";
-    public const string MeshTableName = "Mesh";
-    public const string TransformTableName = "Transform";
-    public const string VertexTableName = "Vertex";
+    public const string ElementTableName = nameof(BimGeometryTableName.Elements);
+    public const string IndexTableName = nameof(BimGeometryTableName.IndexBuffer);
+    public const string MaterialTableName = nameof(BimGeometryTableName.Materials);
+    public const string MeshTableName = nameof(BimGeometryTableName.Meshes);
+    public const string TransformTableName = nameof(BimGeometryTableName.Transforms);
+    public const string VertexTableName = nameof(BimGeometryTableName.VertexBuffer);
 
     public static string[] TableNames
         = [ElementTableName, IndexTableName, MaterialTableName, MeshTableName, TransformTableName, VertexTableName];
@@ -50,24 +50,24 @@ public class BimGeometry
     //==
     // Vertex Table
 
-    // Position of each vertex in local space
-    public float[] VertexX { get; set; } = [];
-    public float[] VertexY { get; set; } = [];
-    public float[] VertexZ { get; set; } = [];
+    // Position of the vertices (x, y, and z) in local space
+    public float[] VertexBuffer { get; set; } = [];
 
     //==
     // Index Table
 
-    // Local face-corner indices: needs to add the appropriate mesh vertex offset  
+    // Local mesh face-corner indices
+    // If you use the single shared vertex buffer you need to add the mesh vertex offsets.
+    // Otherwise, you need to slice the vertex buffer for each mesh. 
     public int[] IndexBuffer { get; set; } = [];
     
     //==
     // Mesh Table 
     
-    // The offset into the vertex buffer where each mesh starts 
+    // The offset into the global vertex buffer where each mesh starts 
     public int[] MeshVertexOffset { get; set; } = [];
     
-    // The offset into the index buffer where each index starts.
+    // The offset into the global index buffer where each index starts.
     public int[] MeshIndexOffset { get; set; } = [];
 
     //==
