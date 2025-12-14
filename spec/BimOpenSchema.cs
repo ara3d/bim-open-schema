@@ -34,7 +34,7 @@ namespace Ara3D.BimOpenSchema
             Descriptors = data.
                 DescriptorIndices().Select(di => Create(di, data.Get(di))).ToList();
 
-            foreach (var p in data.DoubleParameters)
+            foreach (var p in data.SingleParameters)
                 AddParameter(p.Entity, Create(p));
 
             foreach (var p in data.IntegerParameters)
@@ -98,7 +98,7 @@ namespace Ara3D.BimOpenSchema
             e.Parameters.Add(pm);
         }
 
-        public ParameterModel Create(ParameterDouble p) => new(p.Value, Get(p.Descriptor));
+        public ParameterModel Create(ParameterSingle p) => new(p.Value, Get(p.Descriptor));
         public ParameterModel Create(ParameterInt p) => new(p.Value, Get(p.Descriptor));
         public ParameterModel Create(ParameterString p) => new(Get(p.Value), Get(p.Descriptor));
         public ParameterModel Create(ParameterEntity p) => new(Get(p.Value), Get(p.Descriptor));

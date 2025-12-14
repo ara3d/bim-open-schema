@@ -13,10 +13,11 @@
 ///
 /// Coordinates: Z-Up, right-handed.
 /// Units: meters
+/// Geometry point units: 0.1 mm
 /// </summary>
 public class BimGeometry
 {
-    public const string ElementTableName = nameof(BimGeometryTableName.Elements);
+    public const string InstanceTableName = nameof(BimGeometryTableName.Instances);
     public const string IndexTableName = nameof(BimGeometryTableName.IndexBuffer);
     public const string MaterialTableName = nameof(BimGeometryTableName.Materials);
     public const string MeshTableName = nameof(BimGeometryTableName.Meshes);
@@ -24,34 +25,43 @@ public class BimGeometry
     public const string VertexTableName = nameof(BimGeometryTableName.VertexBuffer);
 
     public static string[] TableNames
-        = [ElementTableName, IndexTableName, MaterialTableName, MeshTableName, TransformTableName, VertexTableName];
+        = [InstanceTableName, IndexTableName, MaterialTableName, MeshTableName, TransformTableName, VertexTableName];
 
     //==
-    // Element Table
+    // Instance Table
     //
     // Represent a distinct geometric part. 
-    // An element consists of a mesh, material, transform associated with a specific entity 
-    // An entity may have multiple elements.
+    // An instance consists of a mesh, material, transform associated with a specific entity 
+    // An entity may have multiple instances.
     // Meshes, materials, and transforms may all be shared to reduce repetition 
     // An element corresponds roughly to an "InstanceStructs" in the Ara3D.Models
 
-    // Index of the entity associated with this element
-    public int[] ElementEntityIndex { get; set; } = [];
+    // Index of the entity associated with this instance
+    public int[] InstanceEntityIndex { get; set; } = [];
 
-    // Index of the material associated with this element
-    public int[] ElementMaterialIndex { get; set; } = [];
+    // Index of the material associated with this instance
+    public int[] InstanceMaterialIndex { get; set; } = [];
 
-    // Index of the mesh associated with this element
-    public int[] ElementMeshIndex { get; set; } = [];
+    // Index of the mesh associated with this instance
+    public int[] InstanceMeshIndex { get; set; } = [];
 
-    // Index of the transform associated with this element
-    public int[] ElementTransformIndex { get; set; } = [];
+    // Index of the transform associated with this instance
+    public int[] InstanceTransformIndex { get; set; } = [];
 
     //==
     // Vertex Table
 
-    // Position of the vertices (x, y, and z) in local space
-    public float[] VertexBuffer { get; set; } = [];
+    // Multiply vertices by this factor to get the real floating-point value. 
+    public const float VertexMultiplier = 10_000f;
+
+    // X Position of the vertices in local space 
+    public int[] VertexX { get; set; } = [];
+
+    // X Position of the vertices in local space
+    public int[] VertexY { get; set; } = [];
+
+    // X Position of the vertices in local space
+    public int[] VertexZ { get; set; } = [];
 
     //==
     // Index Table
