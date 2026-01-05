@@ -1,25 +1,29 @@
 # BIM Open Schema 
 
 **BIM Open Schema** is an open formal specification of BIM data, including 3D geometry, that is optimized and designed for large-scale 
-data and modern tools and pipelines that uses [**Parquet**](https://parquet.apache.org/) to store data, and zip files to package the data together.  
+data and modern tools and pipelines that uses [**Parquet**](https://parquet.apache.org/) to store data in a compact and widely supported 
+binary format.
 
 ## Repository Contents
 
 This repository provides:
 
 1. [Official specification](https://github.com/ara3d/bim-open-schema/blob/main/spec) - in the form of valid C# code.
-2. [Sample test files](https://github.com/ara3d/bim-open-schema/tree/main/examples) - generated from the Autodesk sample files
-3. [BIM Open Schema Exporter](https://github.com/ara3d/bim-open-schema/releases) - an exporter for Revit 2025 bundled with Ara 3D Viewing. 
+2. [Sample test files](https://github.com/ara3d/bim-open-schema/tree/main/examples) - generated from the Autodesk sample files.
+3. [BIM Open Schema Exporter](https://github.com/ara3d/bim-open-schema/releases) - an exporter for Revit 2025 bundled with Ara 3D Studio. 
+
+https://github.com/user-attachments/assets/a02ae405-e3a1-484f-8f09-8601dbe5db72
 
 ## Additional BIM Open Schema Tools and Resources
 
-BIM Open Schema comes with an ecosystem of open-source tools for 
+BIM Open Schema comes with an ecosystem of open-source tools in other repositories for 
 
-- Reading and querying BIM Open Schema (.BOS) files
-- Exporting BOS files from Revit
-- Displaying BOS data in WPF Datagrid controls
-- Viewing BOS geometry in the browser
-- Querying BOS data in the browser via DuckDB 
+- [Reading and querying BIM Open Schema (.BOS) files](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.IO)
+- [Data structures for querying and construction BIM Open Schema data](https://github.com/ara3d/ara3d-sdk/tree/main/src/Ara3D.BimOpenSchema)
+- [Exporting BOS files from Revit](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BIMOpenSchema.Revit2025)
+- [Displaying BOS data in WPF Datagrid controls](https://github.com/ara3d/ara3d-sdk/tree/main/ext/Ara3D.BimOpenSchema.Browser) along with exporting to GLTF and Excel files
+- [Loading, Viewing, and Querying BOS files in the browser](https://github.com/ara3d/ara3d-webgl)
+- [Querying BOS data in the browser via DuckDB](https://bim-open-schema-reader.vercel.app)
 
 ## About Parquet
 
@@ -32,16 +36,12 @@ there are and what data types are contained within.
 BIM Open Schema files have the extension `.bos` and are zip archives containing several `.parquet` files. 
 You can rename the extension to a `.zip` and open the archive with Windows explorer and other common tools.
 
-## Example Use Cases
+## Example Use Cases for Parquet Data
 
 1. analytics - [**pandas**](https://pandas.pydata.org/), [**Power BI**](https://www.microsoft.com/en-us/power-platform/products/power-bi)
-2. databases - [**DuckDB**](https://duckdb.org/), [**BIM Lakehouse**](https://bimlakehouse.com) 
+2. databases - [**DuckDB**](https://duckdb.org/), [**BIM Lakehouse**](https://bimlakehouse.com), [**BIM Open Schema Reader**](https://bim-open-schema-reader.vercel.app/)
 3. serialization - [**Parquet**](https://parquet.apache.org/)
-4. interactive visualization - [**Ara 3D Studio**](https://github.com/ara3d/ara3d-studio)
-
-## Demo Video
-
-https://github.com/user-attachments/assets/fe591704-08a7-451a-a257-adae73ad4c9d
+4. interactive visualization - [**Ara 3D Studio**](https://github.com/ara3d/ara3d-studio), [**Ara 3D WebGL**](https://github.com/ara3d/ara3d-webgl).
 
 ## What is a Schema? 
 
