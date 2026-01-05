@@ -1,19 +1,26 @@
 # BIM Open Schema 
 
-**BIM Open Schema** is an open formal specification of BIM data, including 3D geometry, that is optimized and designed for real-world large-scale 
-data and modern tools and pipelines.
+**BIM Open Schema** is an open formal specification of BIM data, including 3D geometry, that is optimized and designed for large-scale 
+data and modern tools and pipelines that uses [**Parquet**](https://parquet.apache.org/) to store data, and zip files to package the data together.  
 
-When used with Parquet, BIM Open Schema allows you to efficiently represent extremely large BIM projects, with a very small footprint
-and supported by a wide range of tools off the shelf. 
+## Repository Contents
 
-## Repo Contents
-
-This repo provides:
+This repository provides:
 
 1. [Official specification](https://github.com/ara3d/bim-open-schema/blob/main/spec) - in the form of valid C# code.
-2. [Sample test file](https://github.com/ara3d/bim-open-schema/tree/main/examples) - generated from the Autodesk Revit 2025 Snowdon sample
-3. [BIM Open Schema Exporter for Revit 2025](https://github.com/ara3d/bim-open-schema/releases)
-   
+2. [Sample test files](https://github.com/ara3d/bim-open-schema/tree/main/examples) - generated from the Autodesk sample files
+3. [BIM Open Schema Exporter](https://github.com/ara3d/bim-open-schema/releases) - an exporter for Revit 2025 bundled with Ara 3D Viewing. 
+
+## Additional BIM Open Schema Tools and Resources
+
+BIM Open Schema comes with an ecosystem of open-source tools for 
+
+- Reading and querying BIM Open Schema (.BOS) files
+- Exporting BOS files from Revit
+- Displaying BOS data in WPF Datagrid controls
+- Viewing BOS geometry in the browser
+- Querying BOS data in the browser via DuckDB 
+
 ## About Parquet
 
 [**Parquet**](https://parquet.apache.org/) is a very compact, efficient, and widely supported binary format for tabular data.  
