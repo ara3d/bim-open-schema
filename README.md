@@ -108,6 +108,14 @@ Some of the people who have contributed are (in alphabetical order):
 We have an active Discord server and discussion forum that you can join if you are interested. 
 Just send us an [email request](mailto:info@ara3d.com)
 
+## Project Ideas 
+
+If you have ideas for projects that we, or others could do please share them! 
+We have some additional code on the side that we can provide to help accelerate your work (e.g., if you want to start a project in C++). 
+
+- Blender to BIM Open Schema
+- Rhino to BIM Open Schema
+
 ## Commercial Support and Services 
 
 If you are interesting in professional help in leveraging the format and learning what you can do with it, reach out to 
