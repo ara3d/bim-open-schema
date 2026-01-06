@@ -4,6 +4,8 @@
 data and modern tools and pipelines that uses [**Parquet**](https://parquet.apache.org/) to store data in a compact and widely supported 
 binary format.
 
+👉 [***Get it here!***](https://github.com/ara3d/bim-open-schema/releases)
+
 ## Repository Contents
 
 This repository provides:
