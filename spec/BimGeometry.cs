@@ -27,6 +27,11 @@ public class BimGeometry
     public static string[] TableNames
         = [InstanceTableName, IndexTableName, MaterialTableName, MeshTableName, TransformTableName, VertexTableName];
 
+    public enum InstanceFlagEnum : long
+    {
+        IsHidden = 0x1,
+    }
+
     //==
     // Instance Table
     //
@@ -47,6 +52,9 @@ public class BimGeometry
 
     // Index of the transform associated with this instance
     public int[] InstanceTransformIndex { get; set; } = [];
+
+    // Note: currently this is just an "Hidden" flag.
+    public byte[] InstanceFlags { get; set; } = [];
 
     //==
     // Vertex Table
