@@ -4,7 +4,9 @@
 data and modern tools and pipelines that uses [**Parquet**](https://parquet.apache.org/) to store data in a compact and widely supported 
 binary format.
 
-👉 [***Get it here!***](https://github.com/ara3d/bim-open-schema/releases)
+👉 [***Get the Revit 2025 exporter here!***](https://github.com/ara3d/bim-open-schema/releases)
+
+The official release comes with an exporter for Revit 2025 and Ara 3D Studio for viewing and exploring the contents of BIM Open Schema files.  
 
 ## Repository Contents
 
