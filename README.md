@@ -71,10 +71,8 @@ The contents of the .bos archive are the following parquet files:
   - Documents.parquet
   - Points.parquet
   - Strings.parquet
-  - DoubleParameters.parquet
-  - IntegerParameter.parquet
-  - PointParameters.parquet
-  - StringParameters.parquet
+  - Numbers.parquet
+  - Parameters.parquet
 - **Geometry Data** 
   - Elements.parquet
   - Transforms.parquet
