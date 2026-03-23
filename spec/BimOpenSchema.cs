@@ -28,14 +28,11 @@ public interface IBimData
 {
     Manifest Manifest { get; }
     IReadOnlyList<ParameterDescriptor> Descriptors { get; } 
-    IReadOnlyList<ParameterInt> IntegerParameters { get; } 
-    IReadOnlyList<ParameterSingle> SingleParameters { get; } 
-    IReadOnlyList<ParameterString> StringParameters { get; } 
-    IReadOnlyList<ParameterEntity> EntityParameters { get; } 
-    IReadOnlyList<ParameterPoint> PointParameters { get; } 
+    IReadOnlyList<Parameter> Parameters { get; } 
     IReadOnlyList<Document> Documents { get; } 
     IReadOnlyList<Entity> Entities { get; } 
-    IReadOnlyList<string> Strings { get; } 
+    IReadOnlyList<string> Strings { get; }
+    IReadOnlyList<float> Numbers { get; }
     IReadOnlyList<Point> Points { get; } 
     IReadOnlyList<EntityRelation> Relations { get; }
     IReadOnlyList<Diagnostic> Diagnostics { get; }
@@ -45,7 +42,7 @@ public interface IBimData
 // Usually stored as a .JSON file in the BOS package. 
 public class Manifest
 {
-    public const string CurrentVersion = "0.1";
+    public const string CurrentVersion = "0.3";
     public string BimOpenSchemaVersion { get; set; } = CurrentVersion;
     public string GeneratorApplication { get; set; }
     public string GeneratorVersion { get; set; }
@@ -55,14 +52,15 @@ public class Manifest
 //==
 // Enumerations used for indexing tables. Provides type-safety and convenience in code
 //
-// The choice of long provides future proofing. 
 
-public enum EntityIndex : long { }
-public enum PointIndex : long { }
-public enum DocumentIndex : long { }
-public enum DescriptorIndex : long { }
-public enum StringIndex : long { }
-public enum RelationIndex : long { }
+public enum EntityIndex : int { }
+public enum PointIndex : int { }
+public enum DocumentIndex : int { }
+public enum DescriptorIndex : int { }
+public enum StringIndex : int { }
+public enum NumberIndex : int { }
+public enum ParameterIndex : int { }
+public enum RelationIndex : int { }
 
 //==
 // Main data type 
@@ -119,12 +117,12 @@ public record struct Point
 /// </summary>
 public enum ParameterType
 {
-    Int, 
-    Bool = Int,
-    Number,
-    Entity,
-    String,
-    Point,
+    Int = 0, 
+    Bool = Int, 
+    Number = 1,
+    Entity = 2,
+    String = 3,
+    Point = 4,
 }
 
 /// <summary>
@@ -144,54 +142,11 @@ public record struct ParameterDescriptor
 // All parameter data is arranged in one of a set of EAV (Entity Attribute Value) tables.
 // Each one designed for a specific type. 
 
-/// <summary>
-/// A 32-bit integer parameter value
-/// </summary>
-public record struct ParameterInt
+public record struct Parameter
 (
     EntityIndex Entity,
     DescriptorIndex Descriptor,
     int Value
-);
-
-/// <summary>
-/// A parameter value representing text
-/// </summary>
-public record struct ParameterString
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    StringIndex Value
-);
-
-/// <summary>
-/// A 32-bit single precision floating point numeric parameter value
-/// </summary>
-public record struct ParameterSingle
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    float Value
-);
-
-/// <summary>
-/// A parameter value which references another entity 
-/// </summary>
-public record struct ParameterEntity
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    EntityIndex Value
-);
-
-/// <summary>
-/// A 32-bit integer parameter value
-/// </summary>
-public record struct ParameterPoint
-(
-    EntityIndex Entity,
-    DescriptorIndex Descriptor,
-    PointIndex Value
 );
 
 //==
@@ -257,7 +212,6 @@ public enum RelationType
     // For MEP systems (e.g., HVAC) providing service to a zone
     Serves = 14,
 }
-
 
 public enum DiagnosticType
 {

@@ -61,19 +61,7 @@ namespace Ara3D.BimOpenSchema
 
             Descriptors.AddRange(Data.DescriptorIndices().Select(di => Create(di,Data.Get(di))));
 
-            foreach (var p in Data.SingleParameters)
-                AddParameter(p.Entity, Create(p));
-
-            foreach (var p in Data.IntegerParameters)
-                AddParameter(p.Entity, Create(p));
-
-            foreach (var p in Data.StringParameters)
-                AddParameter(p.Entity, Create(p));
-
-            foreach (var p in Data.PointParameters)
-                AddParameter(p.Entity, Create(p));
-
-            foreach (var p in Data.EntityParameters)
+            foreach (var p in Data.Parameters)
                 AddParameter(p.Entity, Create(p));
 
             foreach (var r in Data.Relations)
@@ -103,19 +91,30 @@ namespace Ara3D.BimOpenSchema
         public DescriptorModel Get(DescriptorIndex di) => di < 0 ? null : Descriptors[(int)di];
         public Point Get(PointIndex pi) => pi < 0 ? new Point(0,0,0) : Data.Get(pi);
         public string Get(StringIndex si) => si < 0 ? "" : Data.Get(si);
+        public float Get(NumberIndex ni) => ni < 0 ? 0 : Data.Get(ni);
 
         public void AddParameter(EntityIndex ei, ParameterModel pm)
         {
             var e = Get(ei);
-            e.ParameterValues[pm.Descriptor.Name] = pm.Value;
+            e.ParameterValues[pm.Descriptor.Name] = GetParameterValue(pm);
             e.Parameters.Add(pm);
         }
 
-        public ParameterModel Create(ParameterSingle p) => new(p.Value, Get(p.Descriptor));
-        public ParameterModel Create(ParameterInt p) => new(p.Value, Get(p.Descriptor));
-        public ParameterModel Create(ParameterString p) => new(Get(p.Value), Get(p.Descriptor));
-        public ParameterModel Create(ParameterEntity p) => new(Get(p.Value), Get(p.Descriptor));
-        public ParameterModel Create(ParameterPoint p) => new(Get(p.Value), Get(p.Descriptor));
+        public object GetParameterValue(ParameterModel pm)
+        {
+            return pm.Descriptor.ParameterType switch
+            {
+                ParameterType.Int => pm.IntegerValue,
+                ParameterType.String => Get((StringIndex)pm.IntegerValue),
+                ParameterType.Number => Get((NumberIndex)pm.IntegerValue),
+                ParameterType.Entity => Get((EntityIndex)pm.IntegerValue),
+                ParameterType.Point => Get((PointIndex)pm.IntegerValue).ToString(),
+                _ => null
+            };
+        }
+
+        public ParameterModel Create(Parameter p) 
+            => new(p.Value, Get(p.Descriptor));
     }
 
     public class EntityModel
@@ -128,8 +127,8 @@ namespace Ara3D.BimOpenSchema
         // Always accessible data 
         public IBimData Data => Model.Data;
         public Entity Entity => Model.Data.Get(Index);
-        public DocumentModel Document => Model.Documents[(int)Entity.Document];
-        public string DocumentTitle => Document.Title;
+        public DocumentModel Document => Model.Documents.ElementAtOrDefault((int)Entity.Document);
+        public string DocumentTitle => Document?.Title;
         public long LocalId => Entity.LocalId;
         public string GlobalId => Data.Get(Entity.GlobalId);
         public string Category => GetEntityModel(Entity.Category)?.Name;
@@ -194,17 +193,17 @@ namespace Ara3D.BimOpenSchema
 
     public class ParameterModel
     {
-        public object Value { get; }
+        public int IntegerValue { get; }
         public DescriptorModel Descriptor { get; }
-
-        public ParameterModel(object value, DescriptorModel descriptor)
+        
+        public ParameterModel(int value, DescriptorModel descriptor)
         {
-            Value = value;
+            IntegerValue = value;
             Descriptor = descriptor;
         }
 
         public override string ToString()
-            => $"{Descriptor.Name} ({Descriptor.ParameterType}) = {Value}";
+            => $"{Descriptor.Name} ({Descriptor.ParameterType}) = {IntegerValue}";
     }
 
     public class DocumentModel
@@ -220,27 +219,5 @@ namespace Ara3D.BimOpenSchema
         public string Units { get; init; }
         public string Group { get; init; }
         public ParameterType ParameterType { get; init; }
-
-        public Type DotNetType
-        {
-            get
-            {
-                switch (ParameterType)
-                {
-                    case ParameterType.Int:
-                        return typeof(int);
-                    case ParameterType.Number:
-                        return typeof(double);
-                    case ParameterType.Entity:
-                        return typeof(int);
-                    case ParameterType.String:
-                        return typeof(string);
-                    case ParameterType.Point:
-                        return typeof(Point);
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            }
-        }
     }
 }
