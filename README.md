@@ -1,4 +1,6 @@
-# BIM Open Schema 
+<img src="brand/lockup.svg" alt="BIM Open Schema" width="368" height="64">
+
+# BIM Open Schema
 
 **BIM Open Schema** is an open formal specification of BIM data, including 3D geometry, that is optimized and designed for large-scale 
 data and modern tools and pipelines that uses [**Parquet**](https://parquet.apache.org/) to store data in a compact and widely supported 
