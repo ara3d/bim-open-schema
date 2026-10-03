@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIM Open Schema</title>
+<meta name="description" content="An open specification that stores a building model as plain tables in Parquet: entities, parameters, relations, and geometry.">
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@600;700&family=Public+Sans:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-brand: "Instrument Sans", "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-ui: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Fira Code", "Cascadia Mono", Consolas, ui-monospace, monospace;
+  --text: #171a1f; --dim: #5a606c; --surface: #ffffff; --bg: #f4f5f7; --border: #e3e6ea;
+  --accent: #4f5d78; --soft: #e9ecf2;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 400 15px/1.55 var(--font-ui); }
+main { max-width: 860px; margin: 0 auto; padding: 32px 16px 64px; }
+h1, h2 { font-family: var(--font-brand); line-height: 1.2; }
+h2 { font-size: 20px; margin: 40px 0 12px; }
+p { margin: 0 0 12px; max-width: 72ch; }
+a { color: var(--accent); text-underline-offset: 2px; }
+code { font: 400 13px var(--font-mono); background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 0 4px; }
+.lockup { width: 368px; max-width: 100%; height: auto; display: block; margin: 0 0 16px -8px; }
+.lede { font-size: 17px; }
+.get { display: inline-block; font: 600 14px/1 var(--font-ui); color: #fff; background: var(--accent); border-radius: 6px; padding: 10px 14px; text-decoration: none; margin: 4px 0 8px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; font-size: 14px; width: 100%; }
+th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+th { font-weight: 600; background: var(--soft); }
+tr:last-child td { border-bottom: 0; }
+td code { white-space: nowrap; }
+.badge { font: 500 11px/1 var(--font-mono); color: var(--accent); background: var(--soft); border-radius: 3px; padding: 3px 5px; margin-left: 6px; }
+@media (max-width: 600px) { td code { white-space: normal; overflow-wrap: anywhere; } th, td { padding: 8px; } }
+ul { padding-left: 20px; max-width: 72ch; }
+li { margin: 0 0 4px; }
+footer { margin-top: 48px; color: var(--dim); font-size: 13px; }
+footer a { color: var(--dim); }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <img class="lockup" src="assets/lockup.svg" alt="BIM Open Schema">
+  <p class="lede">An open specification that stores a building model, including its 3D geometry, as plain tables. A <code>.bos</code> file is a zip of <a href="https://parquet.apache.org/">Parquet</a> files, so the model opens in pandas, DuckDB, Power BI, or any tool that reads columnar data, with no vendor's API in the way.</p>
+  <p><a class="get" href="https://github.com/ara3d/bim-open-schema/releases">Get the exporter and sample files</a></p>
+</header>
+
+<h2>What is in the repository</h2>
+<ul>
+  <li><strong>The specification</strong>, as a small dependency-free C# project under <a href="https://github.com/ara3d/bim-open-schema/tree/main/src/Ara3D.BimOpenSchema"><code>src/Ara3D.BimOpenSchema</code></a>. The C# is the normative text; the schema itself is independent of language and of serialization format.</li>
+  <li><strong>Sample files</strong> under <a href="https://github.com/ara3d/bim-open-schema/tree/main/examples"><code>examples</code></a>, generated from the Autodesk sample models.</li>
+  <li><strong>An exporter</strong> for Revit 2025, on the <a href="https://github.com/ara3d/bim-open-schema/releases">releases page</a>.</li>
+</ul>
+<p>The reference implementation in .NET, with readers, writers, IFC conversion, DuckDB loading, and tests, is <a href="https://ara3d.github.io/bim-open-data/">BIM Open Data</a>.</p>
+
+<h2>The tables</h2>
+<p>Every <code>.bos</code> archive holds these Parquet files. The non-geometry tables describe what the building contains; the geometry tables describe what it looks like. Rename the file to <code>.zip</code> to look inside with any archive tool.</p>
+<div class="table-wrap">
+<table>
+  <tr><th>File</th><th>Holds</th></tr>
+  <tr><td><code>Entities.parquet</code> <span class="badge">data</span></td><td>One row per entity: an element, a type, a category, a level, a room, a material, or a document, with a name and an index into its category and type</td></tr>
+  <tr><td><code>Descriptors.parquet</code> <span class="badge">data</span></td><td>Parameter definitions: name, units, group, and the value's type</td></tr>
+  <tr><td><code>Parameters.parquet</code> <span class="badge">data</span></td><td>One row per parameter value: which entity, which descriptor, and an index into the value table for its type</td></tr>
+  <tr><td><code>Strings.parquet</code>, <code>Numbers.parquet</code>, <code>Points.parquet</code> <span class="badge">data</span></td><td>The value tables that parameters point into, so each value is stored once</td></tr>
+  <tr><td><code>Documents.parquet</code> <span class="badge">data</span></td><td>The source files the entities came from</td></tr>
+  <tr><td><code>Relations.parquet</code> <span class="badge">data</span></td><td>Typed edges between entities: part of, member of, contained in, hosted by, has material, connects to, bounded by, and more</td></tr>
+  <tr><td><code>Diagnostics.parquet</code> <span class="badge">data</span></td><td>Messages the exporter recorded while producing the file</td></tr>
+  <tr><td><code>Instances.parquet</code>, <code>Transforms.parquet</code> <span class="badge">geometry</span></td><td>Each placed instance with its entity, mesh, material, and a hidden flag; transforms as translation, quaternion, and scale</td></tr>
+  <tr><td><code>Meshes.parquet</code>, <code>VertexBuffer.parquet</code>, <code>IndexBuffer.parquet</code> <span class="badge">geometry</span></td><td>Triangle meshes as flat vertex and index buffers, shared between instances</td></tr>
+  <tr><td><code>Materials.parquet</code> <span class="badge">geometry</span></td><td>Red, green, blue, alpha, roughness, and metallic for each material, one byte each</td></tr>
+</table>
+</div>
+
+<h2>How the specification is written</h2>
+<p>Five C# files define the tables and nothing else. <code>BimOpenSchema.cs</code> holds the entity, descriptor, parameter, document, and relation records and the enums for parameter and relation types. <code>BimGeometry.cs</code> holds the geometry tables. <code>BimData.cs</code> and <code>BimGeometryTableName.cs</code> name the tables an archive contains. <code>CommonRevitParameters.cs</code> lists the parameter names a Revit export produces, so a reader can find a door's width without guessing. <a href="https://github.com/ara3d/bim-open-schema/blob/main/source-code.md">source-code.md</a> explains how to build the project and how to change a table.</p>
+
+<h2>Principles</h2>
+<ul>
+  <li><strong>Plain tables.</strong> A model is rows and columns, not an object graph behind an API. Any columnar tool is a BOS tool.</li>
+  <li><strong>Honest absence.</strong> A missing measure stays missing. No null becomes a zero and no size is read from a name.</li>
+  <li><strong>Self-describing.</strong> Parquet carries the column names and types, so a reader knows the shape of the data before reading a row.</li>
+  <li><strong>Small and stable.</strong> The specification is a few hundred lines. A change to it is a change to a C# record, reviewed as code.</li>
+</ul>
+
+<footer>
+  <p>Part of the BIM Open family: <a href="https://ara3d.github.io/bim-open-toolkit/">Toolkit</a>, <a href="https://ara3d.github.io/bim-open-data/">Data</a>, <a href="https://ara3d.github.io/bim-open-flow/">Flow</a>, <a href="https://ara3d.github.io/bim-open-viewer/">Viewer</a>, <a href="https://ara3d.github.io/bim-open-notebook/">Notebook</a>. Source: <a href="https://github.com/ara3d/bim-open-schema">ara3d/bim-open-schema</a>. MIT licensed.</p>
+</footer>
+
+</main>
+</body>
+</html>
