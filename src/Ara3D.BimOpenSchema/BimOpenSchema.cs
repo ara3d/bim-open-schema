@@ -57,8 +57,9 @@ public class Manifest
 // "" or 0. An empty string from the source is a real value: it is stored in the
 // string table and its index is not -1.
 //
-// Readers should also accept an index of 0 that points to "" in files written
-// before this rule, and treat it as absent for GlobalId, Name, and Document.Title.
+// Files written before this rule stored an absent GlobalId, Name, or Document.Title
+// as the index of an empty string (at whatever position "" was interned, often not
+// 0). Readers should treat any index whose string is "" as absent for those three.
 //
 
 public enum EntityIndex : int { }
