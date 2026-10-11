@@ -50,6 +50,16 @@ public class Manifest
 //==
 // Enumerations used for indexing tables. Provides type-safety and convenience in code
 //
+// An index of -1 means the value is absent: the source had no such value.
+// This holds for every index column that refers to another table: StringIndex,
+// NumberIndex, EntityIndex, DocumentIndex, DescriptorIndex, and PointIndex.
+// A reader shows an absent value as missing (null in C#, NULL in SQL), never as
+// "" or 0. An empty string from the source is a real value: it is stored in the
+// string table and its index is not -1.
+//
+// Readers should also accept an index of 0 that points to "" in files written
+// before this rule, and treat it as absent for GlobalId, Name, and Document.Title.
+//
 
 public enum EntityIndex : int { }
 public enum PointIndex : int { }
@@ -72,15 +82,17 @@ public record struct Entity
     // ElementID in Revit, and Step Line # in IFC
     // Will be unique when combined with a DocumentIndex (e.g., "${LocalId}-{Document}" would be a unique string identifier within the database). 
     // But multiple documents can share the same entity  
+    // -1 when the entity has no local id (for example, a category made up by the exporter).
     long LocalId,
 
-    // UniqueID in Revit, and GlobalID in IFC (not stored in string table, because it is never duplicated)
+    // UniqueID in Revit, and GlobalID in IFC, as an index into the string table.
+    // -1 when the entity has none (for example, an IFC entity that is not an IfcRoot).
     StringIndex GlobalId, 
 
     // The index of the document this entity is part of 
     DocumentIndex Document,
 
-    // The name of the entity 
+    // The name of the entity, or -1 when it has none 
     StringIndex Name,
 
     // The category of the entity
@@ -142,6 +154,7 @@ public record struct ParameterDescriptor
 //
 // All parameter data is arranged in one of a set of EAV (Entity Attribute Value) tables.
 // Each one designed for a specific type. 
+// A parameter the source left without a value has no row: absence is the absence of the row.
 
 public record struct Parameter
 (

@@ -34,6 +34,14 @@ BIM Open Schema comes with an ecosystem of open-source tools in other repositori
 - [Loading, Viewing, and Querying BOS files in the browser](https://github.com/ara3d/ara3d-webgl)
 - [Querying BOS data in the browser via DuckDB](https://bim-open-schema-reader.vercel.app)
 
+## Absent Values
+
+An index of -1 in any column that points into another table (a string, number, entity, document, descriptor, or point index) means the value is absent: the source had none.
+A reader shows it as missing (NULL in SQL, null in code), never as an empty string or 0.
+An entity's `LocalId` is -1 when it has no local id, and a parameter with no value has no row.
+An empty string from the source is a real value and is stored in the string table.
+Files written before this rule store an absent `GlobalId` or `Name` as the index of `""`; readers treat that as absent too.
+
 ## About Parquet
 
 [**Parquet**](https://parquet.apache.org/) is a very compact, efficient, and widely supported binary format for tabular data.  
